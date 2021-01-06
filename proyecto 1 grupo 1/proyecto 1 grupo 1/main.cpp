@@ -1,12 +1,20 @@
 // proyecto 1 grupo 1.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
 
-#include <iostream>
-
+#include "loadData.h"
+#include <vector>
+#include "Libraries.h"
 int main()
 {
-    //Esto lo hizo El Bongo. :v
-    std::cout << "Hello World!\n";
+    
+    vector<Person*>* v = new vector<Person*>;
+    loadData::deserialize(v);
+
+    for (int i = 0; i < v->size(); i++) {
+        cout << v->at(i)->toString() << endl;
+    }
+
+    delete v;
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
