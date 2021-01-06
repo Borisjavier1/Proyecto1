@@ -1,11 +1,19 @@
 #include "Person.h"
 
-bool Person::toBool(string value)
+bool Person::StoBool(string value)
 {
     if (value == "Yes")  
         return true; 
     else 
         return false;
+}
+
+string Person::BtoString(bool value)
+{
+    if (value == true)
+        return "Yes";
+    else
+        return "No";
 }
 
 Person::Person(string name, long long id, bool withChild, bool pregnant, bool elderly, int category)
@@ -25,11 +33,11 @@ Person::Person(istream& input)
     input >> id;
     input.ignore();
     getline(input, temp, ',');
-    this->withChild = toBool(temp);
+    this->withChild = StoBool(temp);
     getline(input, temp, ',');
-    this->pregnant = toBool(temp);
+    this->pregnant = StoBool(temp);
     getline(input, temp, ',');
-    this->elderly = toBool(temp);
+    this->elderly = StoBool(temp);
     input >> category;
     input.ignore();
 
@@ -93,6 +101,16 @@ int Person::getCategory() const
 void Person::setCategory(int category)
 {
     this->category = category;
+}
+
+void Person::serializar(ostream& out)
+{
+    out << this->name << ",";
+    out << this->id << ",";
+    out << BtoString(this->withChild) << ",";
+    out << BtoString(this->pregnant) << ",";
+    out << BtoString(this->elderly) << ",";
+    out << this->category;
 }
 
 string Person::toString()

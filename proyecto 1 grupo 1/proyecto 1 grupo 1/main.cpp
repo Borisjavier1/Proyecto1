@@ -1,14 +1,16 @@
 // proyecto 1 grupo 1.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
 
-#include "loadData.h"
-#include <vector>
+#include "dataPersistence.h"
 #include "Libraries.h"
 int main()
 {
     
     vector<Person*>* v = new vector<Person*>;
-    loadData::deserialize(v);
+    
+    dataPersistence d("Personas.csv");
+
+    d.deserialize(v);
 
     for (int i = 0; i < v->size(); i++) {
         cout << v->at(i)->toString() << endl;

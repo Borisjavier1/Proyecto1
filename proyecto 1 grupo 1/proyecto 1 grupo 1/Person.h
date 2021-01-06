@@ -10,7 +10,8 @@ private:
 	bool elderly;
 	int category;
 
-    bool toBool(string value);
+    bool StoBool(string value);
+    string BtoString(bool value);
 public:
 	Person(string name = "", long long id = 0, bool withChild = false, bool pregnant = false, bool elderly = false, int category = 0);
     Person(istream& input);
@@ -32,6 +33,7 @@ public:
     int getCategory() const;
     void setCategory(int category);
 
+    void serializar(ostream& out);
     string toString();
 
 };
