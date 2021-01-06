@@ -1,3 +1,9 @@
+/*
+* @author Arnoldo González Quesada, Boris Monge Chaves,Carlos Álvarez Ramírez.
+* @ v1.0
+* .cpp file for DataPersistence class that handles data recovery from local files.
+*
+*/
 #include "dataPersistence.h"
 
 dataPersistence::dataPersistence(string fileRoute)
@@ -19,7 +25,15 @@ void dataPersistence::deserialize(vector<Person*>* v)
 		in.close();
 	}
 }
-
+void dataPersistence::deserialize(BST<Person>* bst){
+	ifstream in(fileRoute, ios::in);
+	if (in.good())
+		while (!in.eof() && in.good()){
+			Person* p = new Person(in);	
+			bst->insert(p);	
+		}
+	in.close();
+}
 void dataPersistence::serialize()
 {
 	/*int size = this->tree->size();

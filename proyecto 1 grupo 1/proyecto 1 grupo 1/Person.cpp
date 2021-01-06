@@ -1,3 +1,9 @@
+/*
+* @author Arnoldo González Quesada, Boris Monge Chaves,Carlos Álvarez Ramírez.
+* @ v1.0
+* .cpp file for Person class which encapsules important data for this proejct.
+*
+*/
 #include "Person.h"
 
 bool Person::StoBool(string value)
@@ -113,7 +119,7 @@ void Person::serializar(ostream& out)
     out << this->category;
 }
 
-string Person::toString()
+string Person::toString() const
 {
     stringstream s;
     s << "Nombre: " << name << endl;
@@ -124,4 +130,46 @@ string Person::toString()
     s << "category: " << category << endl;
     return s.str();
 }
+/*
+ostream& operator <<(ostream& o, const Person& p2) {
+    o << p2.toString();
+    return o;
+}
+*/
+ostream& operator <<(ostream& o, const Person* p2) {
+    o << p2->toString();
+    return o;
+}
+bool  Person::operator <(const Person& p2) const {
+    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
+    /*
+    //This also could be as:
+    //The conditions are asked separately in order to get a sum that details which person has more priority.
+    if (this->withChild) con_p1++;
+    if (this->pregnant) con_p1++;
+    if (this->elderly) con_p1++;
+    if (p2.withChild) con_p2++;
+    if (p2.pregnant) con_p2++;
+    if (p2.elderly) con_p2++;
+    return con_p1 < con_p2;
 
+    or to be read in an easier way: 
+
+    return (int(this->withChild) + int(this->pregnant) + int(this->elderly) + con_p1)
+    < (int(p2.withChild) + int(p2.pregnant) + int(p2.elderly) + con_p2);
+ 
+    */
+    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
+    < (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
+
+}
+bool Person::operator == (const Person& p2) const {
+    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
+    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
+        == (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
+}
+bool Person::operator > (const Person& p2) const {
+    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
+    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
+        > (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
+}

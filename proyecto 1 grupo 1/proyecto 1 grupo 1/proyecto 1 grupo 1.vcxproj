@@ -139,14 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="dataPersistence.cpp" />
+    <ClCompile Include="DataPersistence.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Person.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BST.h" />
+    <ClInclude Include="BSTNode.h" />
     <ClInclude Include="Libraries.h" />
-    <ClInclude Include="dataPersistence.h" />
+    <ClInclude Include="DataPersistence.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Person.h" />
+    <ClInclude Include="Tools.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
