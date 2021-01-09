@@ -34,7 +34,7 @@ void Menu::startScreen() {
 	cont();
 }
 void Menu::mainMenu() {
-	setlocale(LC_ALL, "");
+	setlocale(LC_ALL, ""); //For spanish accents
 	startScreen();
 	
 	while (true) {
@@ -59,7 +59,7 @@ void Menu::mainMenu() {
 			case '5': option5(); break;
 			case '6': option6(); break;
 			case '7': option7(); break;
-			default: throw invalidOption("La opción de menú digitada es inválida.");
+			default: throw InvalidOption("La opción de menú digitada es inválida.");
 			}
 		}
 		catch (RuntimeException e) { printn(e.ErrorMessage()); cont(); }
@@ -123,5 +123,6 @@ void Menu::option7()
 	// aquí va probé serialización 
 	//try { data->deserialize(bst); }
 	//catch (RuntimeException e) { printn(e.ErrorMessage()); cont(); }
-	programExit();+
+	delete this;
+	programExit();
 }

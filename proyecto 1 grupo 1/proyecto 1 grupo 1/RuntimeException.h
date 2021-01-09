@@ -10,22 +10,21 @@ public:
 	string ErrorMessage() const { return this->message; }
 };
 
-	class invalidOption : public RuntimeException {
-	public:
-		invalidOption(const string& error) : RuntimeException(error) {}
-	};
+class InvalidOption : public RuntimeException {
+public:
+	InvalidOption(const string& error) : RuntimeException(error) {}
+};
 
-	class clientNotFound : public RuntimeException {
+class ClientNotFound : public RuntimeException {
 	public:
-		clientNotFound(const string& error) : RuntimeException(error) {}
-	};
+	ClientNotFound(const string& error) : RuntimeException(error) {}
+};
+class EmptyQueue : public RuntimeException {
+public:
+	EmptyQueue(const string& error) : RuntimeException(error) {}
+};
 
-	class emptyQueue : public RuntimeException {
-	public:
-		emptyQueue(const string& error) : RuntimeException(error) {}
-	};
+class FileError : public RuntimeException {
+public:	FileError(const string& error) : RuntimeException(error) {}
 
-	class FileError : public RuntimeException {
-	public:
-		FileError(const string& error) : RuntimeException(error) {}
-	};
+};

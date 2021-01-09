@@ -5,11 +5,9 @@
 * 
 */
 
-
-//probando 1234
 #include "Menu.h"
 int main(){
 	Menu* main = new Menu();
 	main->mainMenu();
-	delete main; //Liberación de memoria.
+
 }
