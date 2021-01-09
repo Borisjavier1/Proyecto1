@@ -10,6 +10,7 @@
 template <class T>
 class BST : public Tree<T> {
 protected:
+	int coun;
 	int size;
 	BSTNode<T>* root;
 	virtual bool recursiveInsert(T*, BSTNode<T>*);
@@ -45,6 +46,7 @@ public:
 template <class T>
 BST<T>::BST() {
 	size = 0;
+    coun = 0;
 	root = new BSTNode<T>();//(NULL,NULL,NULL,NULL)//empty b-tree, root's parent is always NULL
 	//BTNode(T* info, BTNode<T>* left, BTNode<T>* right, BTNode<T>* parent
 }
@@ -211,14 +213,13 @@ void BST<T>::remove(T* info) {recursiveRemove(info, root);}
 template<class T>
 inline void BST<T>::serializeTree(ostream& out, BSTNode<T>* cursor)
 {
-	int coun = 0;
 	if (cursor)
 		if (cursor->getData()) {
 			 serializeTree(out, cursor->getLeft());
 			 cursor->getData()->serialize(out);
 			 if (coun != size - 1)
 				 out << endl;
-			 coun++;
+			 coun +=1;
 			 serializeTree(out, cursor->getRight());
 		}
 }
