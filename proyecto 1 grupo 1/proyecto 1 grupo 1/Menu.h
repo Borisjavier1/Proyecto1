@@ -12,6 +12,8 @@
 #include "Person.h"
 #include "DataPersistence.h"
 class Menu {
+private:
+	dataPersistence* data;
 protected:
 	BST<Person>* bst; //person binary search tree
 public:

@@ -7,13 +7,15 @@
 #include "Menu.h"
 Menu::Menu() {
 	bst = new BST<Person>();
+	data = new dataPersistence("Personas.csv");
 }
 Menu::~Menu() {
 	delete bst;
+	delete data;
 }
 void Menu::init() {
-	dataPersistence d("Personas.csv");
-	d.deserialize(bst);
+	
+	data->deserialize(bst);
 }
 void Menu::startScreen() {
 	setlocale(LC_ALL, "");
@@ -68,7 +70,7 @@ void Menu::option1() {
 		printn("1: Sí.\n2: No.");
 		while (1) {
 			switch (_getch()) {
-			case '1': printn(bst->toString()); cont(); return;
+			case '1': printn(bst->inOrder(bst->getRoot())); cont(); return;
 			case '2': cont(); return;
 			}
 		}
@@ -80,6 +82,7 @@ void Menu::option1() {
 void Menu::option2() {
 	clearScreen();
 	printn("Opción 2: Encolar un cliente.");
+	data->serialize(bst);
 	cont();
 }
 void Menu::option3() {

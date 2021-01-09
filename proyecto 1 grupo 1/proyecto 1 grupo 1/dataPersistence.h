@@ -10,12 +10,12 @@
 #include "BST.h"
 class dataPersistence {
 private:
-	string fileRoute;
+	string filePath;
 
 public: 
+	dataPersistence();
 	dataPersistence(string fileRoute);
-	void deserialize(vector<Person*>* v);
 	void deserialize(BST<Person>* bst);
-	void serialize();
+	void serialize(BST<Person>* bst);
 
 };

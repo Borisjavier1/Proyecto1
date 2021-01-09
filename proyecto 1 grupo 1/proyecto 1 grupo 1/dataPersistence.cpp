@@ -6,27 +6,19 @@
 */
 #include "dataPersistence.h"
 
-dataPersistence::dataPersistence(string fileRoute)
+dataPersistence::dataPersistence()
 {
-	this->fileRoute = fileRoute;
+	filePath = "";
 }
 
-void dataPersistence::deserialize(vector<Person*>* v)
+dataPersistence::dataPersistence(string filePath)
 {
-	ifstream in(fileRoute, ios::in);
-	if (in.good())
-	{
-		while (!in.eof() && in.good())
-		{
-			Person* p = new Person(in);
-			v->push_back(p);
-
-		}
-		in.close();
-	}
+	this->filePath = filePath;
 }
+
+
 void dataPersistence::deserialize(BST<Person>* bst){
-	ifstream in(fileRoute, ios::in);
+	ifstream in(filePath, ios::in);
 	if (in.good())
 		while (!in.eof() && in.good()){
 			Person* p = new Person(in);	
@@ -34,25 +26,18 @@ void dataPersistence::deserialize(BST<Person>* bst){
 		}
 	in.close();
 }
-void dataPersistence::serialize()
+void dataPersistence::serialize(BST<Person>* bst)
 {
-	/*int size = this->tree->size();
+	int size = bst->getSize();
 	if (size > 0) {
-		ofstream out(this->fileRoute, ios::out);
+		ofstream out(this->filePath, ios::out);
 
 		if (out.good())
 		{
-			for (int i = 0; i < size; i++)
-			{
-				Tree* t = //logica del arbol
-				t->serialize(out);
-
-				if (i != size - 1)
-					out << endl;
-			}
-
-			out.close();
+	       bst->serializeTree(out, bst->getRoot());
+			
 		}
-	}*/
+		out.close();
+	}
 }
 

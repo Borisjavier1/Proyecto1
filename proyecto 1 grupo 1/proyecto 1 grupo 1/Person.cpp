@@ -109,7 +109,7 @@ void Person::setCategory(int category)
     this->category = category;
 }
 
-void Person::serializar(ostream& out)
+void Person::serialize(ostream& out)
 {
     out << this->name << ",";
     out << this->id << ",";

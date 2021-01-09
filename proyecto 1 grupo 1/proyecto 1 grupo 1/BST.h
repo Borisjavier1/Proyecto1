@@ -19,10 +19,10 @@ protected:
 	virtual BSTNode<T>* recursiveRemove(T*, BSTNode<T>*);
 	virtual BSTNode<T>* recursiveFindMin(BSTNode<T>*);
 	virtual BSTNode<T>* recursiveFindMax(BSTNode<T>*);
+public:
 	virtual string inOrder(BSTNode<T>*);
 	virtual string postOrder(BSTNode<T>*);
 	virtual string preOrder(BSTNode<T>*);
-public:
 	BST();
 	virtual ~BST();
 	virtual string toString();
@@ -38,6 +38,9 @@ public:
 	virtual T* findMin();
 	virtual T* findMax();
 	virtual void remove(T*);
+	virtual void serializeTree(ostream& out, BSTNode<T>* cursor);
+	
+	 
 };
 template <class T>
 BST<T>::BST() {
@@ -204,6 +207,24 @@ BSTNode<T>* BST<T>::recursiveRemove(T* info, BSTNode<T>* cursor) {
 }
 template <class T>
 void BST<T>::remove(T* info) {recursiveRemove(info, root);}
+
+template<class T>
+inline void BST<T>::serializeTree(ostream& out, BSTNode<T>* cursor)
+{
+	int coun = 0;
+	if (cursor)
+		if (cursor->getData()) {
+			 serializeTree(out, cursor->getLeft());
+			 cursor->getData()->serialize(out);
+			 if (coun != size - 1)
+				 out << endl;
+			 coun++;
+			 serializeTree(out, cursor->getRight());
+		}
+}
+
+
+
 
 template <class T>
 bool BST<T>::search(T* info) { return recursiveSearch(info, root); }

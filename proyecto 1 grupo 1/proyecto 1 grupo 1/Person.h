@@ -32,7 +32,7 @@ public:
     void setElderly(bool elderly);
     int getCategory() const;
     void setCategory(int category);
-    void serializar(ostream& out);
+    void serialize(ostream& out);
     string toString() const;
     //ostream& operator <<(ostream& o);
 
