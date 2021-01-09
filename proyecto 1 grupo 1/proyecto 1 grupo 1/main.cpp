@@ -8,5 +8,5 @@
 int main(){
 	Menu* main = new Menu();
 	main->mainMenu();
-	delete main;
+	delete main; //Liberación de memoria.
 }
