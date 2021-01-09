@@ -7,6 +7,7 @@
 #ifndef BST_H
 #define BST_H
 #include "Tree.h"
+#include "RuntimeException.h"
 template <class T>
 class BST : public Tree<T> {
 protected:
@@ -223,9 +224,6 @@ inline void BST<T>::serializeTree(ostream& out, BSTNode<T>* cursor)
 			 serializeTree(out, cursor->getRight());
 		}
 }
-
-
-
 
 template <class T>
 bool BST<T>::search(T* info) { return recursiveSearch(info, root); }

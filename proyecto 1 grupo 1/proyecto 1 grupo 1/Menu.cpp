@@ -7,7 +7,7 @@
 #include "Menu.h"
 Menu::Menu() {
 	bst = new BST<Person>();
-	data = new dataPersistence("Personas.csv");
+	data = new DataPersistence("Personas.csv");
 }
 Menu::~Menu() {
 	delete bst;
@@ -15,7 +15,8 @@ Menu::~Menu() {
 }
 void Menu::init() {
 	
-	data->deserialize(bst);
+	try { data->deserialize(bst); }
+	catch (RuntimeException e) { printn(e.ErrorMessage()); cont(); }
 }
 void Menu::startScreen() {
 	setlocale(LC_ALL, "");
@@ -35,6 +36,7 @@ void Menu::startScreen() {
 void Menu::mainMenu() {
 	setlocale(LC_ALL, "");
 	startScreen();
+	
 	while (true) {
 		clearScreen();
 		printn("..............................................................................");
@@ -48,19 +50,25 @@ void Menu::mainMenu() {
 		printn("6- Agregar un cliente nuevo.");
 		printn("7- Salir del programa.");
 		printn("..............................................................................");
-		switch (_getch()) {
-		case '1': option1(); break;
-		case '2': option2(); break;
-		case '3': option3(); break;
-		case '4': option4(); break;
-		case '5': option5(); break;
-		case '6': option6(); break;
-		case '7': printn("Gracias por usar este programa!"); return;
+		try{
+			switch (_getch()) {
+			case '1': option1(); break;
+			case '2': option2(); break;
+			case '3': option3(); break;
+			case '4': option4(); break;
+			case '5': option5(); break;
+			case '6': option6(); break;
+			case '7': option7(); break;
+			default: throw invalidOption("La opción de menú digitada es inválida.");
+			}
 		}
+		catch (RuntimeException e) { printn(e.ErrorMessage()); cont(); }
 	}
-
 }
+
 void Menu::option1() {
+	
+	
 	clearScreen();
 	printn("Opción 1: Encolar todos los clientes.");
 	if (bst->empty()) {
@@ -82,8 +90,10 @@ void Menu::option1() {
 void Menu::option2() {
 	clearScreen();
 	printn("Opción 2: Encolar un cliente.");
-	data->serialize(bst);
 	cont();
+	printn("Ingrese el número de cédula de la persona que desea encolar.");
+	readLongLong();
+	
 }
 void Menu::option3() {
 	clearScreen();
@@ -100,8 +110,18 @@ void Menu::option5() {
 	printn("Opción 5: Simulación de atención de clientes");
 	cont();
 }
+
 void Menu::option6() {
 	clearScreen();
 	printn("Opción 6: Agregar un cliente nuevo.");
 	cont();
+}
+
+void Menu::option7()
+{
+	printn("Gracias por usar este programa!"); 
+	// aquí va probé serialización 
+	//try { data->deserialize(bst); }
+	//catch (RuntimeException e) { printn(e.ErrorMessage()); cont(); }
+	programExit();+
 }

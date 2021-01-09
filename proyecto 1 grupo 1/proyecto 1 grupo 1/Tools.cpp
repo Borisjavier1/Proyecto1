@@ -37,6 +37,19 @@ float readFloat() {
 		}
 	}
 }
+
+long long readLongLong() {
+	while (1) {
+		try {
+			long long x;
+			cin >> x;
+			return x;
+		}
+		catch (...) {
+			print("Digite un numero entero.\n");
+		}
+	}
+}
 void cont() { //continue
 	printn("Digite cualquier tecla para continuar.");
 	_getch();
@@ -44,4 +57,9 @@ void cont() { //continue
 }
 void clearScreen() {
 	if (system("cls")) system("clear");
+}
+
+void programExit()
+{
+	exit(0);
 }

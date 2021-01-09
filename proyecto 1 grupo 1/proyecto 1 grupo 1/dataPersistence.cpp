@@ -6,38 +6,43 @@
 */
 #include "dataPersistence.h"
 
-dataPersistence::dataPersistence()
+DataPersistence::DataPersistence()
 {
 	filePath = "";
 }
 
-dataPersistence::dataPersistence(string filePath)
+DataPersistence::DataPersistence(string filePath)
 {
 	this->filePath = filePath;
 }
 
 
-void dataPersistence::deserialize(BST<Person>* bst){
+void DataPersistence::deserialize(BST<Person>* bst){
 	ifstream in(filePath, ios::in);
-	if (in.good())
-		while (!in.eof() && in.good()){
-			Person* p = new Person(in);	
-			bst->insert(p);	
+	if (in.good()) {
+		while (!in.eof() && in.good()) {
+			Person* p = new Person(in);
+			bst->insert(p);
 		}
-	in.close();
+		in.close();
+	}
+	else { throw FileError("Ruta del archivo no es valida o no hay permisos"); }
 }
-void dataPersistence::serialize(BST<Person>* bst)
+void DataPersistence::serialize(BST<Person>* bst)
 {
 	int size = bst->getSize();
 	if (size > 0) {
 		ofstream out(this->filePath, ios::out);
 
-		if (out.good())
-		{
-	       bst->serializeTree(out, bst->getRoot());
-			
+		if (out.good()) {
+			{
+				bst->serializeTree(out, bst->getRoot());
+
+			}
+			out.close();
 		}
-		out.close();
+		else { throw FileError("Ruta del archivo no es valida o no hay permisos"); }
 	}
+
 }
 

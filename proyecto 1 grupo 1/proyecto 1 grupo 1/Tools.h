@@ -13,6 +13,8 @@ void print(string x);
 void printn(string x); //prints with\n 
 int readInt();
 float readFloat();
+long long readLongLong();
 void cont(); //continue
 void clearScreen();
+void programExit();
 #endif

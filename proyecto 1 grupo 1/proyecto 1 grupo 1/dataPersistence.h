@@ -6,15 +6,15 @@
 */
 #pragma once
 #include "Person.h"
-#include <vector>
 #include "BST.h"
-class dataPersistence {
+#include "RuntimeException.h"
+class DataPersistence {
 private:
 	string filePath;
 
 public: 
-	dataPersistence();
-	dataPersistence(string fileRoute);
+	DataPersistence();
+	DataPersistence(string fileRoute);
 	void deserialize(BST<Person>* bst);
 	void serialize(BST<Person>* bst);
 
