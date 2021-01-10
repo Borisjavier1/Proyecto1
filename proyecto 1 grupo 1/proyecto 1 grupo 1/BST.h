@@ -10,8 +10,10 @@
 #include "RuntimeException.h"
 template <class T>
 class BST : public Tree<T> {
-protected:
+private:
 	int coun;
+    T* recursiveSearchId(long long, BSTNode<T>*);
+protected:
 	int size;
 	BSTNode<T>* root;
 	virtual bool recursiveInsert(T*, BSTNode<T>*);
@@ -22,6 +24,7 @@ protected:
 	virtual BSTNode<T>* recursiveFindMin(BSTNode<T>*);
 	virtual BSTNode<T>* recursiveFindMax(BSTNode<T>*);
 public:
+	T* search(long long);
 	virtual string inOrder(BSTNode<T>*);
 	virtual string postOrder(BSTNode<T>*);
 	virtual string preOrder(BSTNode<T>*);
@@ -126,6 +129,27 @@ template <class T>
 void BST<T>::setSize(int size) {
 	this->size = size;
 }
+template<class T>
+inline T* BST<T>::recursiveSearchId(long long id, BSTNode<T>* cursor)
+{
+	if (cursor) {
+		if (cursor->isExternal()) return nullptr; // If it is an external node it means that the searched item doesnt exist in the bt.
+		if (cursor->getData()) {
+			if (cursor->getData()->getId() == id) return cursor->getData();
+			if (id > cursor->getData()->getId())
+				return recursiveSearchId(id, cursor->getRight());
+			if (id < cursor->getData()->getId())
+				return recursiveSearchId(id, cursor->getLeft());
+		}
+	}
+	return nullptr;
+}
+template<class T>
+inline T* BST<T>::search(long long id)
+{
+	return recursiveSearchId(id, root);
+}
+
 template <class T>
 bool BST<T>::recursiveInsert(T* info, BSTNode<T>* cursor) {
 	//if the tree is empty()

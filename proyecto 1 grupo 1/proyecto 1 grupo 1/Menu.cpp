@@ -88,11 +88,15 @@ void Menu::option1() {
 	cont();
 }
 void Menu::option2() {
+	long long id;
 	clearScreen();
 	printn("Opción 2: Encolar un cliente.");
 	cont();
 	printn("Ingrese el número de cédula de la persona que desea encolar.");
-	readLongLong();
+	cin >> id;
+	Person* p = bst->search(id);
+	cout << p->getName(); cont;
+	//No funciona :c
 	
 }
 void Menu::option3() {

@@ -163,13 +163,16 @@ bool  Person::operator <(const Person& p2) const {
     < (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
 
 }
+
 bool Person::operator == (const Person& p2) const {
     int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
     return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
         == (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
 }
+
 bool Person::operator > (const Person& p2) const {
     int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
     return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
         > (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
 }
+
