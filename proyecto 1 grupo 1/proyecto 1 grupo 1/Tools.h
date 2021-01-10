@@ -7,10 +7,11 @@
 */
 #ifndef TOOLS_H
 #define TOOLS_H
-#include "Libraries.h"
+#include "RuntimeException.h"
 string read(); //Function that reads a string
 void print(string x);
 void printn(string x); //prints with\n 
+void printnError(string x);
 int readInt();
 float readFloat();
 long long readLongLong();

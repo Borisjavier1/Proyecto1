@@ -19,12 +19,23 @@ class ClientNotFound : public RuntimeException {
 	public:
 	ClientNotFound(const string& error) : RuntimeException(error) {}
 };
+
+class EmptyBST : public RuntimeException {
+public:
+	EmptyBST(const string& error) : RuntimeException(error) {}
+};
+
 class EmptyQueue : public RuntimeException {
 public:
 	EmptyQueue(const string& error) : RuntimeException(error) {}
 };
 
 class FileError : public RuntimeException {
-public:	FileError(const string& error) : RuntimeException(error) {}
+public:	
+	FileError(const string& error) : RuntimeException(error) {}
+};
 
+class invalidData : public RuntimeException {
+public:
+	invalidData(const string& error) : RuntimeException(error) {}
 };

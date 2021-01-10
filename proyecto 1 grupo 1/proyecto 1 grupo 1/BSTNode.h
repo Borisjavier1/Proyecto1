@@ -6,10 +6,7 @@
 */
 #ifndef BST_NODE_H
 #define BST_NODE_H
-#include <sstream>
-#include <string>
-using std::string;
-using std::stringstream;
+#include "Libraries.h"
 template <class T>
 class BSTNode {
 protected:

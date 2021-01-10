@@ -155,6 +155,7 @@
     <ClInclude Include="RuntimeException.h" />
     <ClInclude Include="Tools.h" />
     <ClInclude Include="Tree.h" />
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

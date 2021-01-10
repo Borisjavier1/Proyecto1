@@ -62,7 +62,7 @@ void Menu::mainMenu() {
 			default: throw InvalidOption("La opción de menú digitada es inválida.");
 			}
 		}
-		catch (RuntimeException e) { printn(e.ErrorMessage()); cont(); }
+		catch (RuntimeException e) { printnError(e.ErrorMessage()); cont(); }
 	}
 }
 
@@ -88,15 +88,15 @@ void Menu::option1() {
 	cont();
 }
 void Menu::option2() {
-	long long id;
 	clearScreen();
 	printn("Opción 2: Encolar un cliente.");
+	if (bst->getRoot()->getData() == nullptr) { throw EmptyBST("El árbol está vacío."); }
 	cont();
 	printn("Ingrese el número de cédula de la persona que desea encolar.");
-	cin >> id;
-	Person* p = bst->search(id);
-	cout << p->getName(); cont;
-	//No funciona :c
+	if (bst->search(readLongLong()) == nullptr)
+		throw ClientNotFound("No existe una persona con dicho número de cédula.");
+	else Person* p = bst->search(readLongLong());
+
 	
 }
 void Menu::option3() {

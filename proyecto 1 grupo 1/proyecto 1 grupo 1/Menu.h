@@ -6,6 +6,7 @@
 */
 #ifndef MENU_H
 #define MENU_H
+
 #include "Tools.h"
 #include "DataPersistence.h"
 

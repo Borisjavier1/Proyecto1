@@ -16,6 +16,7 @@ private:
 protected:
 	int size;
 	BSTNode<T>* root;
+	//virtual bool recursiveInsert(T*, BSTNode<T>*);
 	virtual bool recursiveInsert(T*, BSTNode<T>*);
 	virtual bool recursiveSearch(T*, BSTNode<T>*);
 	//---------------v1.1--------------------
@@ -35,6 +36,7 @@ public:
 	virtual void setRoot(BSTNode<T>*);
 	virtual int getSize();
 	virtual void setSize(int);
+	//virtual bool insert(T*);
 	virtual bool insert(T*);
 	virtual bool search(T*);
 	virtual bool empty(); //Returns true if the tree is empty
@@ -51,7 +53,7 @@ template <class T>
 BST<T>::BST() {
 	size = 0;
     coun = 0;
-	root = new BSTNode<T>();//(NULL,NULL,NULL,NULL)//empty b-tree, root's parent is always NULL
+	root = new BSTNode<T>();//(nullptr,nullptr,nullptr,nullptr)//empty b-tree, root's parent is always nullptr
 	//BTNode(T* info, BTNode<T>* left, BTNode<T>* right, BTNode<T>* parent
 }
 template <class T>
@@ -73,7 +75,7 @@ BST<T>::~BST() {
 template <class T>
 bool BST<T>::empty() {
 	return !root->getLeft() && !root->getData();
-	//left == NULL and right == NULL && data == NULL
+	//left == nullptr and right == nullptr && data == nullptr
 }
 template <class T>
 string BST<T>::preOrder(BSTNode<T>* cursor) {//parent,left,right
@@ -132,14 +134,22 @@ void BST<T>::setSize(int size) {
 template<class T>
 inline T* BST<T>::recursiveSearchId(long long id, BSTNode<T>* cursor)
 {
-	if (cursor) {
-		if (cursor->isExternal()) return nullptr; // If it is an external node it means that the searched item doesnt exist in the bt.
+	if (cursor!=nullptr) {
+		 // If it is an external node it means that the searched item doesnt exist in the bt.
 		if (cursor->getData()) {
-			if (cursor->getData()->getId() == id) return cursor->getData();
-			if (id > cursor->getData()->getId())
-				return recursiveSearchId(id, cursor->getRight());
-			if (id < cursor->getData()->getId())
+			if (cursor->getData()->getId() == id)
+			{
+				return cursor->getData();
+			}
+			else if (id < cursor->getData()->getId())
+			{
 				return recursiveSearchId(id, cursor->getLeft());
+			}
+			else
+			{
+				return recursiveSearchId(id, cursor->getRight());
+			}
+			
 		}
 	}
 	return nullptr;
@@ -149,7 +159,34 @@ inline T* BST<T>::search(long long id)
 {
 	return recursiveSearchId(id, root);
 }
+template<class T>
+inline bool BST<T>::recursiveInsert(T* info , BSTNode<T>* cursor)
+{
+	if (!root->getData()) { root->setData(info); size++;  return true; }
+	if (cursor && info) {
+		if (info->getId() < cursor->getData()->getId()) {
+			if (cursor->getLeft())
+				return recursiveInsert(info, cursor->getLeft());
+			else {
+				cursor->setLeft(new BSTNode<T>(info, nullptr, nullptr, cursor));
+				size++;
+				return true;
+			}
+		}
+		if (info->getId() > cursor->getData()->getId()) {
+			if (cursor->getRight())
+				return recursiveInsert(info, cursor->getRight());
+			else {
+				cursor->setRight(new BSTNode<T>(info, nullptr, nullptr, cursor));
+				size++;
+				return true;
+			}
+		}
 
+	}
+	return false;
+}
+/*
 template <class T>
 bool BST<T>::recursiveInsert(T* info, BSTNode<T>* cursor) {
 	//if the tree is empty()
@@ -159,7 +196,7 @@ bool BST<T>::recursiveInsert(T* info, BSTNode<T>* cursor) {
 			if (cursor->getLeft())
 				return recursiveInsert(info, cursor->getLeft());
 			else {
-				cursor->setLeft(new BSTNode<T>(info, NULL, NULL, cursor));
+				cursor->setLeft(new BSTNode<T>(info, nullptr, nullptr, cursor));
 				size++;
 				return true;
 			}
@@ -168,7 +205,7 @@ bool BST<T>::recursiveInsert(T* info, BSTNode<T>* cursor) {
 			if (cursor->getRight())
 				return recursiveInsert(info, cursor->getRight());
 			else {
-				cursor->setRight(new BSTNode<T>(info, NULL, NULL, cursor));
+				cursor->setRight(new BSTNode<T>(info, nullptr, nullptr, cursor));
 				size++;
 				return true;
 			}
@@ -177,6 +214,7 @@ bool BST<T>::recursiveInsert(T* info, BSTNode<T>* cursor) {
 	}
 	return false;
 }
+*/
 template <class T>
 bool BST<T>::recursiveSearch(T* info, BSTNode<T>* cursor) {
 	if (cursor) {
@@ -191,10 +229,12 @@ bool BST<T>::recursiveSearch(T* info, BSTNode<T>* cursor) {
 	}
 	return false;
 }
+/*
 template <class T>
 bool BST<T>::insert(T* info) {
 	return recursiveInsert(info, root);
 }
+*/
 template <class T>
 BSTNode<T>* BST<T>::recursiveFindMin(BSTNode<T>* cursor) {
 	if (!cursor) return nullptr;
@@ -210,6 +250,7 @@ BSTNode<T>* BST<T>::recursiveFindMax(BSTNode<T>* cursor) {
 template <class T>T* BST<T>::findMax() { return recursiveFindMax(root)->getData(); }
 template <class T>T* BST<T>::findMin() { return recursiveFindMin(root)->getData(); }
 template <class T>
+
 BSTNode<T>* BST<T>::recursiveRemove(T* info, BSTNode<T>* cursor) {
 	BSTNode<T>* temp;
 	if (!cursor) return nullptr;
@@ -247,6 +288,12 @@ inline void BST<T>::serializeTree(ostream& out, BSTNode<T>* cursor)
 			 coun +=1;
 			 serializeTree(out, cursor->getRight());
 		}
+}
+
+template<class T>
+inline bool BST<T>::insert(T* info)
+{
+	return recursiveInsert(info, root);
 }
 
 template <class T>
