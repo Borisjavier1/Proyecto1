@@ -1,14 +1,17 @@
 #pragma once
 #include "Libraries.h"
+#include "VectorIterator.h"
 template <class T>
 class Vector{
 private:
 	T* data;
 	int capacity;
 	int quantity;
+	VectorIterator<T>* ite;//iterator
 	void ensureCapacity();
 public:
 	Vector(int capacity);
+	VectorIterator<T>* getIterator();
 	void push_back(T info);
 	void insertPosition(T info, int position);
 	void remove(int position);
@@ -19,7 +22,11 @@ public:
 	string toString();
 	~Vector();
 };
-
+template<class T>
+VectorIterator<T>* Vector<T>::getIterator() {
+	if (ite) return ite;
+	return new VectorIterator<T>(data,quantity);
+}
 template<class T>
 inline void Vector<T>::ensureCapacity()
 {
@@ -56,7 +63,7 @@ inline Vector<T>::Vector(int capacity)
 	this->capacity = capacity;
 	this->quantity = 0;
 	this->data = new T[this->capacity];
-
+	this->ite = nullptr;
 	for (int i = 0; i < this->capacity; i++)
 	{
 		this->data[i] = 0;
@@ -170,5 +177,6 @@ inline string Vector<T>::toString()
 template<class T>
 inline Vector<T>::~Vector()
 {
+	delete ite;
 	delete[] this->data;
 }
