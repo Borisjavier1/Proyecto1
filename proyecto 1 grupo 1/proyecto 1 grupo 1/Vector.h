@@ -7,8 +7,6 @@ private:
 	int capacity;
 	int quantity;
 	void ensureCapacity();
-
-
 public:
 	Vector(int capacity);
 	void push_back(T info);

@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="BST.h" />
     <ClInclude Include="BSTNode.h" />
+    <ClInclude Include="Iterator.h" />
     <ClInclude Include="Libraries.h" />
     <ClInclude Include="DataPersistence.h" />
     <ClInclude Include="Menu.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Tools.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="VectorIterator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
