@@ -56,12 +56,13 @@ inline void Vector<T>::ensureCapacity()
 		// Se elimina el arreglo anterior y se actualiza el arreglo actual
 		delete[] this->data;
 		this->data = newVector;
-
+		/*
 		// Se inicializan las nuevas positiones libres
 		for (int i = this->quantity; i < this->capacity; i++)
 		{
 			this->data[i] = 0;
 		}
+		*/
 	}
 }
 
@@ -75,10 +76,12 @@ inline Vector<T>::Vector(int capacity)
 	this->quantity = 0;
 	this->data = new T[this->capacity];
 	this->ite = nullptr;
+	/*
 	for (int i = 0; i < this->capacity; i++)
 	{
 		this->data[i] = 0;
 	}
+	*/
 }
 
 template<class T>
@@ -172,10 +175,10 @@ inline string Vector<T>::toString()
 	stringstream s;
 	for (int i = 0; i < this->quantity; i++)
 	{
-		if (this->data[i])
-		{
+		//if (this->data[i])
+		//{
 			s << this->data[i] << "\n";
-		}
+	//	}
 	}
 	return s.str();
 }

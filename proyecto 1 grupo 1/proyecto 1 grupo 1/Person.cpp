@@ -136,8 +136,8 @@ ostream& operator <<(ostream& o, const Person& p2) {
     return o;
 }
 */
-ostream& operator <<(ostream& o, const Person* p2) {
-    o << p2->toString();
+ostream& operator <<(ostream& o, const Person& p2) {
+    o << p2.toString();
     return o;
 }
 bool  Person::operator <(const Person& p2) const {

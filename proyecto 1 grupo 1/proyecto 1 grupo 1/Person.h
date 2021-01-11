@@ -42,4 +42,4 @@ public:
   
 }; 
 //ostream& operator << (ostream& o, const Person& p2);
-ostream& operator <<(ostream& o, const Person* p2);
+ostream& operator <<(ostream& o, const Person& p2);
