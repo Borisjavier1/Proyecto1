@@ -1,5 +1,6 @@
 #pragma once
 template <class T>
+#include "RuntimeException.h"
 class  VectorIterator {
 private:
 	int cur;//cursor
@@ -9,10 +10,10 @@ public:
 	VectorIterator(int *, int);
 	virtual bool hasMore();
 	virtual void getNext();
-	virtual T* currenItem();
+	virtual T currenItem();
 	virtual void first();
-	virtual T* begin();
-	virtual T* end();
+	virtual T begin();
+	virtual T end();
 };
 template <class T>
 VectorIterator<T>::VectorIterator(int* v, int size){
@@ -27,22 +28,26 @@ bool VectorIterator<T>::hasMore() {
 template <class T>
 void VectorIterator<T>::getNext() {cur++;}
  template <class T>
- T* VectorIterator<T>::currenItem() {
+ T VectorIterator<T>::currenItem(){
 	 if (hasMore())
 		 return  v[cur];
-	 return nullptr;
+	throw IndexOverflow("Index overflow exception.\n");
  }
  template <class T>
  void VectorIterator<T>::first() {
-	 cur = 0;
+	 if (size != 0) { 
+		 cur = 0; 
+		 return;
+	 }
+	 throw EmptyVector("Empty vector exception.\n");
  }
  template <class T>
- T* VectorIterator<T>::begin() {
+ T VectorIterator<T>::begin() {
 	 if (size != 0) return v[0];
-	 return nullptr;
+	 throw EmptyVector("Empty vector exception.\n");
  }
  template <class T>
- T* VectorIterator<T>::end() {
+ T VectorIterator<T>::end() {
 	 if (size != 0) return v[size];
-	 return nullptr;
+	 throw EmptyVector("Empty vector exception.\n");
  }

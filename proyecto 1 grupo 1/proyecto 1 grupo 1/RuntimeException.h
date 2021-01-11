@@ -39,3 +39,11 @@ class invalidData : public RuntimeException {
 public:
 	invalidData(const string& error) : RuntimeException(error) {}
 };
+class EmptyVector : public RuntimeException {
+public:
+	EmptyVector(const string& error) : RuntimeException(error) {}
+};
+class IndexOverflow : public RuntimeException {
+public:
+	IndexOverflow(const string& error) : RuntimeException(error) {}
+};

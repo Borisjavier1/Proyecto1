@@ -12,12 +12,12 @@ int main(){
 	Menu* main = new Menu();
 	main->mainMenu();
 	*/
-	HeapPriorityQueue<int>* h = new HeapPriorityQueue<int>();
-	h->insert(new int(666));
-	h->insert(new int(345));
-	h->insert(new int(23));
-	h->insert(new int(22));
-	h->insert(new int(34));
-	cout << h->getSize();
-
+	Vector<int>* h = new Vector<int>(50);
+	h->insertPosition(356, h->getSize());
+	h->insertPosition(423, h->getSize());
+	h->insertPosition(37, h->getSize());
+	h->insertPosition(25, h->getSize());
+	cout << h->toString();
+	delete h;
+	return 0;
 }

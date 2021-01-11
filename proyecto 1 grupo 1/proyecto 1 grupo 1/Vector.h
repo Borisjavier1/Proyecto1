@@ -15,8 +15,8 @@ public:
 	void push_back(T info);
 	void insertPosition(T info, int position);
 	void remove(int position);
-	T* consult(int position);
-	bool contains(T* info);
+	T consult(int position);
+	bool contains(T info);
 	int size();
 	void deleteData();
 	string toString();
@@ -89,13 +89,8 @@ inline void Vector<T>::push_back(T info)
 }
 
 template<class T>
-inline void Vector<T>::insertPosition(T info, int position)
-{
-	if (position > this->quantity)
-	{
-		return;
-	}
-
+inline void Vector<T>::insertPosition(T info, int position){
+	if (position > this->quantity) return;
 	ensureCapacity();
 	for (int i = this->quantity - 1; i >= position; i--)
 	{
@@ -127,7 +122,7 @@ inline void Vector<T>::remove(int position)
 }
 
 template<class T>
-inline T* Vector<T>::consult(int position)
+inline T Vector<T>::consult(int position)
 {
 	if (position >= this->quantity)
 	{
@@ -138,7 +133,7 @@ inline T* Vector<T>::consult(int position)
 }
 
 template<class T>
-inline bool Vector<T>::contains(T* info)
+inline bool Vector<T>::contains(T info)
 {
 	for (int i = 0; i < this->quantity; i++)
 	{
@@ -179,7 +174,7 @@ inline string Vector<T>::toString()
 	{
 		if (this->data[i])
 		{
-			s << this->data[i] << endl;
+			s << this->data[i] << "\n";
 		}
 	}
 	return s.str();
