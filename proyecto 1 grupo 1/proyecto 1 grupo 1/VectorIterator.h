@@ -12,6 +12,7 @@ public:
 	virtual T* currenItem();
 	virtual void first();
 	virtual T* begin();
+	virtual T* end();
 };
 template <class T>
 VectorIterator<T>::VectorIterator(int* v, int size){
@@ -27,9 +28,8 @@ template <class T>
 void VectorIterator<T>::getNext() {cur++;}
  template <class T>
  T* VectorIterator<T>::currenItem() {
-	 if (isDone()) { 
+	 if (hasMore())
 		 return  v[cur];
-	 }
 	 return nullptr;
  }
  template <class T>
@@ -39,5 +39,10 @@ void VectorIterator<T>::getNext() {cur++;}
  template <class T>
  T* VectorIterator<T>::begin() {
 	 if (size != 0) return v[0];
+	 return nullptr;
+ }
+ template <class T>
+ T* VectorIterator<T>::end() {
+	 if (size != 0) return v[size];
 	 return nullptr;
  }

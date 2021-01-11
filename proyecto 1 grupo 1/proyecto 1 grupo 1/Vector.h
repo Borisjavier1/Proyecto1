@@ -20,13 +20,24 @@ public:
 	int size();
 	void deleteData();
 	string toString();
+	int getSize();
+	void setSize(int);
 	~Vector();
+	void setPosition(int i,T inf);
 };
+template <class T>
+void Vector<T> ::setPosition(int i, T inf) {
+	data[i] = inf;
+}
 template<class T>
 VectorIterator<T>* Vector<T>::getIterator() {
 	if (ite) return ite;
 	return new VectorIterator<T>(data,quantity);
 }
+template<class T>
+int Vector<T>::getSize() { return quantity; }
+template<class T>
+void Vector<T>::setSize(int quantity) { this->quantity = quantity; }
 template<class T>
 inline void Vector<T>::ensureCapacity()
 {
