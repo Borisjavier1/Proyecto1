@@ -139,7 +139,7 @@ inline T Vector<T>::consult(int position)
 		return nullptr; 
 	}
 
-	return &this->data[position];
+	return this->data[position];
 }
 
 template<class T>

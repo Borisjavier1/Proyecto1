@@ -9,16 +9,16 @@ private:
 public:
     HeapPriorityQueue();
     ~HeapPriorityQueue();
-    T* parent(int i,int &pos);
-  	void swap(T* p, T* q);
-    T* leftChild(int i, int &pos);
-    T* rightChild(int i, int &pos);
+    T parent(int i,int &pos);
+  	void swap(T p, T q);
+    T leftChild(int i, int &pos);
+    T rightChild(int i, int &pos);
     void shiftUp(int i);
     void shiftDown(int i);
-    void insert(T* p);
-    T* extractMax();
-    void changePriority(int i, T* p);
-    T* getMax();
+    void insert(T p);
+    T extractMax();
+    void changePriority(int i, T p);
+    T getMax();
     void remove(int i);
     virtual string toString();
     int getSize();
@@ -27,7 +27,7 @@ template <class T>
 int HeapPriorityQueue<T>::getSize() { return size; }
 template <class T>
 HeapPriorityQueue<T>::HeapPriorityQueue() {
-    v = new Vector<T>(1);
+    v = new Vector<T>(10);
     size = 0;
 }
 template <class T>
@@ -35,24 +35,24 @@ HeapPriorityQueue<T>::~HeapPriorityQueue() {
     delete v;
 }
 template <class T>
-T* HeapPriorityQueue<T>::parent(int i, int &pos) {
+T HeapPriorityQueue<T>::parent(int i, int &pos) {
     pos = (i - 1) / 2;
     return v->consult((i - 1) / 2);
 }
 template <class T>
-void HeapPriorityQueue<T>::swap(T* p, T* q) {
-    T e = *q;
-    *q = *p;
-    *p = e;
+void HeapPriorityQueue<T>::swap(T p, T q) {
+    T e = q;
+    q = p;
+    p = e;
 }
 template <class T>
-T* HeapPriorityQueue<T>::leftChild(int i, int& pos)
+T HeapPriorityQueue<T>::leftChild(int i, int& pos)
 {
     pos = (2 * i) + 1;
     return v->consult(((2 * i) + 1));
 }
 template <class T>
-T* HeapPriorityQueue<T>::rightChild(int i, int& pos)
+T HeapPriorityQueue<T>::rightChild(int i, int& pos)
 {
     pos = ((2 * i) + 2);
     return v->consult(((2 * i) + 2));
@@ -80,7 +80,7 @@ void HeapPriorityQueue<T>::shiftDown(int i)
     int maxIndex = i;
 
     // Left Child 
-    T* l = leftChild(i);
+    T l = leftChild(i);
 
     if (l <= size && v->consult(l) > v->consult(maxIndex)) {
         maxIndex = l;
@@ -100,17 +100,17 @@ void HeapPriorityQueue<T>::shiftDown(int i)
     }
 }
 template <class T>
-void HeapPriorityQueue<T>::insert(T* p)
+void HeapPriorityQueue<T>::insert(T p)
 {
     size = size + 1;
-    v->setPosition(size, *p);
+    v->push_back(p);
 
     // Shift Up to maintain heap property 
     shiftUp(size);
 }
 template <class T>
-T* HeapPriorityQueue<T>::extractMax() {
-    T* result = v->consult(0);
+T HeapPriorityQueue<T>::extractMax() {
+    T result = v->consult(0);
     v->setPosition(0, v->consult(size));
     v->setSize(v->getSize() - 1);
     shiftDown(0);
@@ -120,8 +120,8 @@ T* HeapPriorityQueue<T>::extractMax() {
 // Function to change the priority 
 // of an element 
 template <class T>
-void HeapPriorityQueue<T>::changePriority(int i, T* p) {
-    T* oldp = v[i];
+void HeapPriorityQueue<T>::changePriority(int i, T p) {
+    T oldp = v[i];
     v->setPosition(i, *p);
     if (*p > *oldp)
         shiftUp(i);
@@ -132,7 +132,7 @@ void HeapPriorityQueue<T>::changePriority(int i, T* p) {
 // Function to get value of the current 
 // maximum element 
 template <class T>
-T* HeapPriorityQueue<T>::getMax() {
+T HeapPriorityQueue<T>::getMax() {
     return v->consult(0);
 }
 template <class T>

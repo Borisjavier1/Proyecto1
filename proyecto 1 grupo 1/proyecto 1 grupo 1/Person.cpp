@@ -136,10 +136,11 @@ ostream& operator <<(ostream& o, const Person& p2) {
     return o;
 }
 */
-ostream& operator <<(ostream& o, const Person& p2) {
+/*ostream& operator <<(ostream& o, const Person& p2) {
     o << p2.toString();
     return o;
 }
+*/
 bool  Person::operator <(const Person& p2) const {
     int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
     /*
