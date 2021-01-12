@@ -34,8 +34,7 @@ public:
     void setCategory(int category);
     void serialize(ostream& out);
     string toString() const;
-    //ostream& operator <<(ostream& o);
-
+    int priority() const; //Calculate priority
     bool operator < (const Person& p2) const;
     bool operator == (const Person& p2) const;
     bool operator > (const Person& p2) const;

@@ -12,9 +12,9 @@ public:
 	T* left(T* p) { return pos(2 * idx(p)); }
 	T* right(T* p) { return pos(2 * idx(p)); }
 	T* parent(T* p) { return pos(idx(p) / 2); }
-	bool hasLeft(T& p) { return 2 * idx(p) <= v->size(); }
-	bool hasRight(T& p) { return 2 * idx(p) <= v->size(); }
-	bool isRoot(T& p) { return idx(p) == 0; }
+	bool hasLeft(T* p) { return 2 * idx(p) <= v->size(); }
+	bool hasRight(T* p) { return 2 * idx(p) <= v->size(); }
+	bool isRoot(T* p) { return idx(p) == 0; }
 	T* root() { return pos(0); }
 	T* last() { return pos(v->size()-1); }
 	void addLast(T* t) { v->push_back(t); }

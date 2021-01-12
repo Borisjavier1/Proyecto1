@@ -14,12 +14,10 @@ bool Person::StoBool(string value)
         return false;
 }
 
-string Person::BtoString(bool value)
-{
+string Person::BtoString(bool value){
     if (value == true)
         return "Yes";
-    else
-        return "No";
+    return "No";
 }
 
 Person::Person(string name, long long id, bool withChild, bool pregnant, bool elderly, int category)
@@ -31,7 +29,17 @@ Person::Person(string name, long long id, bool withChild, bool pregnant, bool el
     this->elderly = elderly;
     this->category = category;
 }
-
+int Person::priority() const{ //Calculate priority
+    const int TOTAL = 100;
+    float per = 0.0f;//percentage;
+    if (this->withChild) per += 0.20;
+    if (this->pregnant) per += 0.25;
+    if (this->elderly) per += 0.35;
+    if(this->category == 1) per += 0.20;
+    if (this->category == 2) per += 0.10;
+    //category 3 has 0% percentage, so, it does not affect the priority.
+    return int(TOTAL * per);
+}
 Person::Person(istream& input)
 {
     string temp;
@@ -138,38 +146,14 @@ ostream& operator <<(ostream& o, const Person& p2) {
 }
 
 bool  Person::operator <(const Person& p2) const {
-    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
-    /*
-    //This also could be as:
-    //The conditions are asked separately in order to get a sum that details which person has more priority.
-    if (this->withChild) con_p1++;
-    if (this->pregnant) con_p1++;
-    if (this->elderly) con_p1++;
-    if (p2.withChild) con_p2++;
-    if (p2.pregnant) con_p2++;
-    if (p2.elderly) con_p2++;
-    return con_p1 < con_p2;
-
-    or to be read in an easier way: 
-
-    return (int(this->withChild) + int(this->pregnant) + int(this->elderly) + con_p1)
-    < (int(p2.withChild) + int(p2.pregnant) + int(p2.elderly) + con_p2);
- 
-    */
-    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
-    < (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
-
+    return (this->priority() < p2.priority());
 }
 
 bool Person::operator == (const Person& p2) const {
-    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
-    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
-        == (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
+    return (this->priority() == p2.priority());
 }
 
 bool Person::operator > (const Person& p2) const {
-    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
-    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
-        > (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
+    return (this->priority() > p2.priority());
 }
 
