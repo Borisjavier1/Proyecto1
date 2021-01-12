@@ -78,7 +78,7 @@ void Menu::option1() {
 		printn("1: Sí.\n2: No.");
 		while (1) {
 			switch (_getch()) {
-			case '1': printn(bst->inOrder(bst->getRoot())); cont(); return;
+			case '1': printn(bst->toString()); cont(); return;
 			case '2': cont(); return;
 			}
 		}

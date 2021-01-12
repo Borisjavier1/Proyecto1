@@ -55,7 +55,7 @@ void BSTNode<T>::setData(T* data) { this->data = data; }
 template <class T>
 string BSTNode<T>::toString() {
 	stringstream s;
-	s << (data);
+	s << *(data);
 	return s.str();
 }
 template <class T>
