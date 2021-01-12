@@ -71,5 +71,8 @@
     <ClInclude Include="HeapPriorityQueue.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="VectorCompleteTree.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

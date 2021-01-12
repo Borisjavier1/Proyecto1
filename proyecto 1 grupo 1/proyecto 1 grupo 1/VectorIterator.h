@@ -9,7 +9,7 @@ private:
 public:
 	VectorIterator(int *, int);
 	virtual bool hasMore();
-	virtual void getNext();
+	virtual void next();
 	virtual T currenItem();
 	virtual void first();
 	virtual T begin();
@@ -26,7 +26,7 @@ bool VectorIterator<T>::hasMore() {
 	return  cur < size;
 }
 template <class T>
-void VectorIterator<T>::getNext() {cur++;}
+void VectorIterator<T>::next() {cur++;}
  template <class T>
  T VectorIterator<T>::currenItem(){
 	 if (hasMore())

@@ -13,10 +13,12 @@ public:
 	Vector(int capacity);
 	VectorIterator<T>* getIterator();
 	void push_back(T info);
+	void pop_back();
 	void insertPosition(T info, int position);
 	void remove(int position);
 	T consult(int position);
 	bool contains(T info);
+	int getPosition(T info);
 	int size();
 	void deleteData();
 	string toString();
@@ -90,6 +92,11 @@ inline void Vector<T>::push_back(T info)
 	ensureCapacity();
 	this->data[this->quantity++] = info;
 }
+template<class T>
+inline void Vector<T>::pop_back()
+{
+	quantity--;
+}
 
 template<class T>
 inline void Vector<T>::insertPosition(T info, int position){
@@ -145,7 +152,13 @@ inline bool Vector<T>::contains(T info)
 	}
 	return false;
 }
-
+template<class T>
+inline int Vector<T>::getPosition(T info)
+{
+	for (int i = 0; i < this->quantity; i++)
+		if (this->data[i] == info) return i;
+	return -1;
+}
 template<class T>
 inline int Vector<T>::size()
 {

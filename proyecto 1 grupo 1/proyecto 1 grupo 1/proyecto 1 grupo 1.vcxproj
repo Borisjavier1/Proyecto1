@@ -158,6 +158,7 @@
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Vector.h" />
     <ClInclude Include="HeapPriorityQueue.h" />
+    <ClInclude Include="VectorCompleteTree.h" />
     <ClInclude Include="VectorIterator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
