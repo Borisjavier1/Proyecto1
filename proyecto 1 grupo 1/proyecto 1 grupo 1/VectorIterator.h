@@ -5,18 +5,18 @@ class  VectorIterator {
 private:
 	int cur;//cursor
 	int size;
-	T* v;
+	T** v;
 public:
-	VectorIterator(int *, int);
+	VectorIterator(T **, int);
 	virtual bool hasMore();
 	virtual void next();
-	virtual T currenItem();
+	virtual T* currenItem();
 	virtual void first();
-	virtual T begin();
-	virtual T end();
+	virtual T* begin();
+	virtual T* end();
 };
 template <class T>
-VectorIterator<T>::VectorIterator(int* v, int size){
+VectorIterator<T>::VectorIterator(T** v, int size){
 	this->cur = 0;
 	this->v = v;
 	this->size = size;
@@ -28,7 +28,7 @@ bool VectorIterator<T>::hasMore() {
 template <class T>
 void VectorIterator<T>::next() {cur++;}
  template <class T>
- T VectorIterator<T>::currenItem(){
+ T* VectorIterator<T>::currenItem(){
 	 if (hasMore())
 		 return  v[cur];
 	throw IndexOverflow("Index overflow exception.\n");
@@ -42,12 +42,12 @@ void VectorIterator<T>::next() {cur++;}
 	 throw EmptyVector("Empty vector exception.\n");
  }
  template <class T>
- T VectorIterator<T>::begin() {
+ T* VectorIterator<T>::begin() {
 	 if (size != 0) return v[0];
-	 throw EmptyVector("Empty vector exception.\n");
+	 return nullptr;
  }
  template <class T>
- T VectorIterator<T>::end() {
+ T* VectorIterator<T>::end() {
 	 if (size != 0) return v[size];
-	 throw EmptyVector("Empty vector exception.\n");
+	 return nullptr;
  }

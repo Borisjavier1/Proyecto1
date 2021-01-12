@@ -8,6 +8,7 @@ private:
 	T** v;
 	int v_capacity;
 	int v_size;
+	VectorIterator<T>* ite;
 public:
 	Vector(int = MAX_V);
 	virtual ~Vector();
@@ -23,6 +24,7 @@ public:
 	virtual void setSize(int can);
 	virtual bool empty();
 	virtual void setIndex(int idx,T* info);
+	virtual VectorIterator<T>* getIterator();
 };
 
 template <class T>
@@ -32,6 +34,11 @@ Vector<T>::Vector(int tam) {
 	v = new T * [tam];
 	for (int i = 0; i < tam; i++)
 		v[i] = NULL;
+}
+template <class T>
+VectorIterator<T>* Vector<T>::getIterator() {
+	if (ite) return ite;
+	return new VectorIterator<T>(v,v_size);
 }
 template <class T>
 void Vector<T>::setIndex(int idx, T* info) {
@@ -57,9 +64,9 @@ void Vector<T>::setSize(int can) {
 }
 template <class T>
 Vector<T>::~Vector() {
-	for (int i = 0; i < v_capacity; i++)
-		if (v[i]) delete v[i];
-	delete[]v;
+	for (int i = 0; i < v_size; i++)
+		delete v[i];
+	delete[] this->v;
 }
 
 template <class T>
