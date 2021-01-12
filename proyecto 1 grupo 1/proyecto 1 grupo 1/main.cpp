@@ -26,21 +26,15 @@ int main() {
 	cout << vp->toString();
 	delete vp;*/
 
-	HeapPriorityQueue<Person*>* p = new HeapPriorityQueue<Person*>();
+	HeapPriorityQueue<Person>* p = new HeapPriorityQueue<Person>();
 	p->insert(new Person("El Pepe", 666, false, false, false, 3));
 	p->insert(new Person("Prueba 2", 665, false, false, false, 3));
-	cout << p->toString() << endl;
-	/*
-	//Este es otro test
-	VectorCompleteTree<int>* vct = new VectorCompleteTree<int>();
+	p->insert(new Person("Prueba 3", 665, false, false, false, 3));
+	p->insert(new Person("Prueba 4", 665, false, false, false, 3));
+	p->insert(new Person("Prueba 5", 665, false, false, false, 3));
+	cout << p->getVector()->toString() << endl;
 
-	for (int i = 0; i < 30; i++)
-		vct->addLast(rand() % 500+1);
-	print(vct->toString());
-	for (int i = 0; i < 10; i++)
-		vct->removeLast();
-	print(vct->toString());
-	delete vct;
-	return 0;
-	*/
+	//cout << p->extractMax(); //aquí explota xdxdxd
+	//cout << p->getVector()->toString() << endl;
+	delete p;
 }

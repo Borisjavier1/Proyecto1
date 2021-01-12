@@ -1,204 +1,121 @@
 #pragma once
 #include "Libraries.h"
 #include "VectorIterator.h"
+const int MAX_V = 10;
 template <class T>
-class Vector{
+class Vector {
 private:
-	T* data;
-	int capacity;
-	int quantity;
-	VectorIterator<T>* ite;//iterator
-	void ensureCapacity();
+	T** v;
+	int v_capacity;
+	int v_size;
 public:
-	Vector(int capacity);
-	VectorIterator<T>* getIterator();
-	void push_back(T info);
-	void pop_back();
-	void insertPosition(T info, int position);
-	void remove(int position);
-	T consult(int position);
-	bool contains(T info);
-	int getPosition(T info);
-	int size();
-	void deleteData();
-	string toString();
-	int getSize();
-	void setSize(int);
-	~Vector();
-	void setPosition(int i,T inf);
+	Vector(int = MAX_V);
+	virtual ~Vector();
+	virtual string toString();
+	virtual void push_back(T* data);
+	virtual void pop_back();
+	virtual bool remove(T* data);
+	virtual int getPosition(T* data);
+	virtual bool search(T* data);
+	virtual void emptyVector();
+	virtual T* getByIndex(int pos);
+	virtual int size();
+	virtual void setSize(int can);
+	virtual bool empty();
+	virtual void setIndex(int idx,T* info);
 };
+
 template <class T>
-void Vector<T> ::setPosition(int i, T inf) {
-	data[i] = inf;
+Vector<T>::Vector(int tam) {
+	this->v_capacity = tam;
+	this->v_size = 0;
+	v = new T * [tam];
+	for (int i = 0; i < tam; i++)
+		v[i] = NULL;
 }
-template<class T>
-VectorIterator<T>* Vector<T>::getIterator() {
-	if (ite) return ite;
-	return new VectorIterator<T>(data,quantity);
-}
-template<class T>
-int Vector<T>::getSize() { return quantity; }
-template<class T>
-void Vector<T>::setSize(int quantity) { this->quantity = quantity; }
-template<class T>
-inline void Vector<T>::ensureCapacity()
-{
-	if (this->quantity == this->capacity)
-	{
-		// Se duplica la capacidad actual del arreglo.
-		this->capacity = capacity * 2;
-		T* newVector = new T[this->capacity];
-
-		// Se copian los infos almacenados en el nuevo arreglo
-		for (int i = 0; i < this->quantity; i++)
-		{
-			newVector[i] = this->data[i];
-		}
-
-		// Se elimina el arreglo anterior y se actualiza el arreglo actual
-		delete[] this->data;
-		this->data = newVector;
-		/*
-		// Se inicializan las nuevas positiones libres
-		for (int i = this->quantity; i < this->capacity; i++)
-		{
-			this->data[i] = 0;
-		}
-		*/
+template <class T>
+void Vector<T>::setIndex(int idx, T* info) {
+	if (idx >= 0 && idx < v_size) {
+		T* aux = v[idx];
+		v[idx] = info;
+		delete aux;
 	}
 }
-
-
-
-
-template<class T>
-inline Vector<T>::Vector(int capacity)
-{
-	this->capacity = capacity;
-	this->quantity = 0;
-	this->data = new T[this->capacity];
-	this->ite = nullptr;
-	/*
-	for (int i = 0; i < this->capacity; i++)
-	{
-		this->data[i] = 0;
-	}
-	*/
+template <class T>
+T* Vector<T>::getByIndex(int pos) {
+	if (pos >= 0 && pos < v_size)
+		return v[pos];
+	return nullptr;
+}
+template <class T>
+bool Vector<T>::empty() { return !v_size; } //can == 0
+template <class T>
+int Vector<T>::size() { return v_size; }
+template <class T>
+void Vector<T>::setSize(int can) {
+	this->v_size = can;
+}
+template <class T>
+Vector<T>::~Vector() {
+	for (int i = 0; i < v_capacity; i++)
+		if (v[i]) delete v[i];
+	delete[]v;
 }
 
-template<class T>
-inline void Vector<T>::push_back(T info)
-{
-	ensureCapacity();
-	this->data[this->quantity++] = info;
-}
-template<class T>
-inline void Vector<T>::pop_back()
-{
-	quantity--;
-}
-
-template<class T>
-inline void Vector<T>::insertPosition(T info, int position){
-	if (position > this->quantity) return;
-	ensureCapacity();
-	for (int i = this->quantity - 1; i >= position; i--)
-	{
-		this->data[i + 1] = this->data[i];
-	}
-	this->data[position] = info;
-	this->quantity++;
-}
-
-template<class T>
-inline void Vector<T>::remove(int position)
-{
-	if (position >= this->quantity)
-	{
-		return;
-	}
-
-	if (this->data[position])
-	{
-		delete this->data[position];
-	}
-
-	for (int i = position; i < this->quantity - 1; i++) {
-		this->data[i] = data[i + 1];
-	}
-
-	this->data[this->quantity - 1] = nullptr;
-	this->quantity--;
-}
-
-template<class T>
-inline T Vector<T>::consult(int position)
-{
-	if (position >= this->quantity)
-	{
-		return nullptr; 
-	}
-
-	return this->data[position];
-}
-
-template<class T>
-inline bool Vector<T>::contains(T info)
-{
-	for (int i = 0; i < this->quantity; i++)
-	{
-		if (this->data[i] == info)
-			return true;
-	}
-	return false;
-}
-template<class T>
-inline int Vector<T>::getPosition(T info)
-{
-	for (int i = 0; i < this->quantity; i++)
-		if (this->data[i] == info) return i;
-	return -1;
-}
-template<class T>
-inline int Vector<T>::size()
-{
-	return this->quantity;
-}
-
-template<class T>
-inline void Vector<T>::deleteData()
-{
-	for (int i = 0; i < this->quantity; i++)
-	{
-		if (this->data[i])
-		{
-			delete this->data[i];
-			this->data[i] = nullptr;
-		}
-	}
-
-	this->quantity = 0;
-}
-
-
-
-template<class T>
-inline string Vector<T>::toString()
-{
+template <class T>
+string Vector<T>::toString() {
 	stringstream s;
-	for (int i = 0; i < this->quantity; i++)
-	{
-		//if (this->data[i])
-		//{
-			s << this->data[i] << "\n";
-	//	}
-	}
+	for (int i = 0; i < v_size; i++)
+		s << "[" << i + 1 << "]: " << *v[i] << "\n";
 	return s.str();
 }
 
-template<class T>
-inline Vector<T>::~Vector()
-{
-	delete ite;
-	delete[] this->data;
+template <class T>
+void Vector<T>::push_back(T* elemento) {
+	if (v_size < v_capacity) {
+		v[v_size] = elemento;
+		v_size++;
+	}
+}
+template <class T>
+void Vector<T>::pop_back() {
+	delete v[v_size - 1];
+	v[v_size - 1] = nullptr;
+	v_size--;
+}
+template <class T>
+bool Vector<T>::remove(T* elemento) {
+	int pos = search(elemento);
+	if (pos == -1) return false;
+	T* aux = v[pos];
+	for (int i = pos; i < v_size; i++) v[i] = v[i + 1];//Corrimiento
+	delete aux;
+	v[v_size] = nullptr;//El final queda apuntando a NULL
+	v_size--;
+	return true;
+}
+
+template <class T>
+bool Vector<T>::search(T* elemento) {//Búsqueda lineal, se debe arreglar para reducir el tiempo O(n)
+	if (!v_size) return false;
+	if (*v[0] == *elemento) return 0;
+	for (int i = 0; i < v_size; i++)
+		if (*elemento == *(v[i]))
+			return true;
+	return false;
+}
+template <class T>
+int Vector<T>::getPosition(T* elemento) {//Búsqueda lineal, se debe arreglar para reducir el tiempo O(n)
+	if (!v_size) return -1;
+	if (v_size == 1) if (v[0] == elemento) return 0;
+	for (int i = 0; i < v_size; i++)
+		if (*elemento == *v[i])
+			return i;
+	return -1;
+}
+template <class T>
+void Vector<T>::emptyVector() {
+	for (int i = 0; i < v_size; i++)
+		delete v[i];
+	v_size = 0;
 }

@@ -39,6 +39,6 @@ public:
 		return s.str();
 	}
 protected:
-	T pos(int i) { return v.consult(i); }
-	int idx(T info) { return v.getPosition(info); }
+	T pos(int i) { return v.getByIndex(i); }
+	int idx(T info) { return v.getIndex(info); }
 };
