@@ -8,6 +8,7 @@
 #define BST_H
 #include "Tree.h"
 #include "RuntimeException.h"
+#include "HeapPriorityQueue.h"
 template <class T>
 class BST : public Tree<T> {
 private:
@@ -26,6 +27,7 @@ protected:
 	virtual BSTNode<T>* recursiveFindMax(BSTNode<T>*);
 public:
 	T* search(long long);
+	void moveData(HeapPriorityQueue<T>* queue, BSTNode<T>* cursor);
 	virtual string inOrder(BSTNode<T>*);
 	virtual string postOrder(BSTNode<T>*);
 	virtual string preOrder(BSTNode<T>*);
@@ -158,6 +160,16 @@ template<class T>
 inline T* BST<T>::search(long long id)
 {
 	return recursiveSearchId(id, root);
+}
+template<class T>
+inline void BST<T>::moveData(HeapPriorityQueue<T>* queue, BSTNode<T>* cursor)
+{
+	if (cursor)
+		if (cursor->getData()) {
+			moveData(queue, cursor->getLeft());
+			queue->insert(cursor->getData());
+			moveData(queue, cursor->getRight());
+		}
 }
 template<class T>
 inline bool BST<T>::recursiveInsert(T* info , BSTNode<T>* cursor)

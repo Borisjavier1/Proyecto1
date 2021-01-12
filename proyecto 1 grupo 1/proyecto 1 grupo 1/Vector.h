@@ -1,7 +1,8 @@
 #pragma once
 #include "Libraries.h"
 #include "VectorIterator.h"
-const int MAX_V = 10;
+#include "RuntimeException.h"
+const int MAX_V = 100;
 template <class T>
 class Vector {
 private:

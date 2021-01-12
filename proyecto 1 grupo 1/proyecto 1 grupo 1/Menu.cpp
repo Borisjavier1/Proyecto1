@@ -8,10 +8,13 @@
 Menu::Menu() {
 	bst = new BST<Person>();
 	data = new DataPersistence("Personas.csv");
+	hpq = new HeapPriorityQueue<Person>();
+	init();
 }
 Menu::~Menu() {
 	delete bst;
 	delete data;
+	delete hpq;
 }
 void Menu::init() {
 	
@@ -67,42 +70,29 @@ void Menu::mainMenu() {
 }
 
 void Menu::option1() {
-	
-	
 	clearScreen();
 	printn("Opción 1: Encolar todos los clientes.");
-	if (bst->empty()) {
-		init();
-		printn("¡Se han cargado los clientes del archivo!");
-		printn("¿Desea ver la información de todos los clientes ingresados?");
-		printn("1: Sí.\n2: No.");
-		while (1) {
-			switch (_getch()) {
-			case '1': 
-				printn(bst->toString()); 
-				cont(); 
-				return;
-			case '2': 
-				cont(); 
-				return;
-			}
-		}
-	}
-	else
-		printn("Los clientes ya fueron cargados.");
 	cont();
+	if (hpq->size() != 100) {
+		bst->moveData(hpq, bst->getRoot());
+		printn("¡Clientes tranferidos exitosamente!"); cont();
+	}
+	else { throw DataTransferred("Los clientes ya han sido tranferidos."); }
+	
+	
 }
 void Menu::option2() {
+	long long id;
 	clearScreen();
 	printn("Opción 2: Encolar un cliente.");
-	if (bst->getRoot()->getData() == nullptr) { throw EmptyBST("El árbol está vacío."); }
 	cont();
 	printn("Ingrese el número de cédula de la persona que desea encolar.");
-	if (bst->search(readLongLong()) == nullptr)
-		throw ClientNotFound("No existe una persona con dicho número de cédula.");
-	else Person* p = bst->search(readLongLong());
-
-	
+	id = readLongLong();
+	if (bst->search(id) == nullptr) { throw ClientNotFound("No existe una persona con dicho número de cédula."); }
+	else {
+		hpq->insert(bst->search(id));
+		printn("Cliente ingresado correctamente."); cont();
+	}
 }
 void Menu::option3() {
 	clearScreen();

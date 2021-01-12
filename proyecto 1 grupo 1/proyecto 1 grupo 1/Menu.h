@@ -15,6 +15,7 @@ private:
 	DataPersistence* data;
 protected:
 	BST<Person>* bst; //person binary search tree
+	HeapPriorityQueue<Person>* hpq;
 public:
 	Menu();
 	virtual ~Menu();

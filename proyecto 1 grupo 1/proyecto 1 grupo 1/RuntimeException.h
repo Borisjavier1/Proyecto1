@@ -20,14 +20,14 @@ class ClientNotFound : public RuntimeException {
 	ClientNotFound(const string& error) : RuntimeException(error) {}
 };
 
-class EmptyBST : public RuntimeException {
-public:
-	EmptyBST(const string& error) : RuntimeException(error) {}
-};
-
 class EmptyQueue : public RuntimeException {
 public:
 	EmptyQueue(const string& error) : RuntimeException(error) {}
+};
+
+class DataTransferred : public RuntimeException {
+public:
+	DataTransferred(const string& error) : RuntimeException(error) {}
 };
 
 class FileError : public RuntimeException {
@@ -39,11 +39,18 @@ class invalidData : public RuntimeException {
 public:
 	invalidData(const string& error) : RuntimeException(error) {}
 };
-class EmptyVector : public RuntimeException {
-public:
-	EmptyVector(const string& error) : RuntimeException(error) {}
-};
+
 class IndexOverflow : public RuntimeException {
 public:
 	IndexOverflow(const string& error) : RuntimeException(error) {}
+};
+
+class DuplicateClient : public RuntimeException {
+public:
+	DuplicateClient(const string& error) : RuntimeException(error) {}
+};
+
+class EmptyVector : public RuntimeException {
+public:
+	EmptyVector(const string& error) : RuntimeException(error) {}
 };

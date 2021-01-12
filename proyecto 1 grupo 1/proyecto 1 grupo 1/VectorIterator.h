@@ -31,7 +31,7 @@ void VectorIterator<T>::next() {cur++;}
  T* VectorIterator<T>::currenItem(){
 	 if (hasMore())
 		 return  v[cur];
-	throw IndexOverflow("Index overflow exception.\n");
+	throw IndexOverflow("Desbordamiento de {ínice producido.\n");
  }
  template <class T>
  void VectorIterator<T>::first() {
@@ -39,7 +39,7 @@ void VectorIterator<T>::next() {cur++;}
 		 cur = 0; 
 		 return;
 	 }
-	 throw EmptyVector("Empty vector exception.\n");
+	 throw EmptyVector("Vector vacío.\n");
  }
  template <class T>
  T* VectorIterator<T>::begin() {
