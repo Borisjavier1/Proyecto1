@@ -88,14 +88,19 @@ void Menu::option1() {
 	cont();
 }
 void Menu::option2() {
+	HeapPriorityQueue<Person*>* z = new HeapPriorityQueue<Person*>();
 	clearScreen();
 	printn("Opción 2: Encolar un cliente.");
 	if (bst->getRoot()->getData() == nullptr) { throw EmptyBST("El árbol está vacío."); }
 	cont();
 	printn("Ingrese el número de cédula de la persona que desea encolar.");
-	if (bst->search(readLongLong()) == nullptr)
+	/*if (bst->search(readLongLong()) == nullptr)
 		throw ClientNotFound("No existe una persona con dicho número de cédula.");
-	else Person* p = bst->search(readLongLong());
+	else Person* per = bst->search(readLongLong());*/
+
+	z->insert(bst->search(readLongLong()));
+	cout << z->toString() << endl;
+	cont();
 
 	
 }

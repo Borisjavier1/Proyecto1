@@ -9,6 +9,7 @@
 
 #include "Tools.h"
 #include "DataPersistence.h"
+#include "HeapPriorityQueue.h"
 
 class Menu {
 private:

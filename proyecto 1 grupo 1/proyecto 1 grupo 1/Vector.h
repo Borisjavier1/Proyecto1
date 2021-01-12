@@ -190,7 +190,7 @@ inline string Vector<T>::toString()
 	{
 		//if (this->data[i])
 		//{
-			s << this->data[i] << "\n";
+			s << this->data[i]->toString() << "\n";
 	//	}
 	}
 	return s.str();
