@@ -20,9 +20,9 @@ class ClientNotFound : public RuntimeException {
 	ClientNotFound(const string& error) : RuntimeException(error) {}
 };
 
-class EmptyQueue : public RuntimeException {
+class EmptyHeapPriorityQueue : public RuntimeException {
 public:
-	EmptyQueue(const string& error) : RuntimeException(error) {}
+	EmptyHeapPriorityQueue(const string& error) : RuntimeException(error) {}
 };
 
 class DataTransferred : public RuntimeException {

@@ -44,6 +44,7 @@ void HeapPriorityQueue<T>::insert(T* e) {
 }
 template<typename T> // remove minimum
 void HeapPriorityQueue<T>::removeMin() {
+	if (empty()) throw EmptyHeapPriorityQueue("ERROR: La cola se encuentra vacía.");
 	if (size() == 1) // only one node?
 		vct->removeLast(); // . . .remove it
 	else {

@@ -74,8 +74,8 @@ void Menu::option1() {
 	if (hpq->empty()) {
 		bst->moveData(hpq, bst->getRoot());
 		printn("¡Clientes tranferidos exitosamente!");
-	}
-	else { throw DataTransferred("Los clientes ya han sido tranferidos."); }
+	}else  
+		throw DataTransferred("Los clientes ya han sido tranferidos."); 
 	
 	cont();
 }
@@ -94,12 +94,33 @@ void Menu::option2() {
 }
 void Menu::option3() {
 	clearScreen();
+	const int MAX_TO_SHOW = 5;
 	printn("Opción 3: Atender los siguientes 5 clientes.");
+	if (hpq->empty()) throw EmptyHeapPriorityQueue("La cola se encuentra vacía.");
+	printn("............................................");
+	try {
+		for (int i = 0; i < 101; i++) {
+			if (hpq->empty())  throw EmptyHeapPriorityQueue(
+				"No hay más clientes por ser atendidos.");
+			else {
+				printf("[%d] Atendiendo a:\n",i+1);
+				printn(hpq->min()->toString());
+				hpq->removeMin();
+			}
+			printn("..........................................");
+		}
+	}
+	catch (RuntimeException e) {throw e;}
 	cont();
 }
 void Menu::option4() {
 	clearScreen();
 	printn("Opción 4: Mostrar el siguiente cliente a ser atendido.");
+	if (hpq->empty())
+		throw EmptyHeapPriorityQueue("La cola se encuentra vacía.");
+	else
+		printn("El siguiente cliente para ser atendido es: "+
+		hpq->min()->toString());
 	cont();
 }
 void Menu::option5() {
