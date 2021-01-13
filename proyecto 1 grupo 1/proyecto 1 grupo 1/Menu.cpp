@@ -39,7 +39,6 @@ void Menu::startScreen() {
 void Menu::mainMenu() {
 	setlocale(LC_ALL, ""); //For spanish accents
 	startScreen();
-	
 	while (true) {
 		clearScreen();
 		printn("..............................................................................");
@@ -72,14 +71,13 @@ void Menu::mainMenu() {
 void Menu::option1() {
 	clearScreen();
 	printn("Opción 1: Encolar todos los clientes.");
-	cont();
-	if (hpq->size() != 100) {
+	if (hpq->empty()) {
 		bst->moveData(hpq, bst->getRoot());
-		printn("¡Clientes tranferidos exitosamente!"); cont();
+		printn("¡Clientes tranferidos exitosamente!");
 	}
 	else { throw DataTransferred("Los clientes ya han sido tranferidos."); }
 	
-	
+	cont();
 }
 void Menu::option2() {
 	long long id;
@@ -88,7 +86,7 @@ void Menu::option2() {
 	cont();
 	printn("Ingrese el número de cédula de la persona que desea encolar.");
 	id = readLongLong();
-	if (bst->search(id) == nullptr) { throw ClientNotFound("No existe una persona con dicho número de cédula."); }
+	if (!bst->search(id)) { throw ClientNotFound("No existe la persona con el número de cédula digitado.\n"); }
 	else {
 		hpq->insert(bst->search(id));
 		printn("Cliente ingresado correctamente."); cont();
