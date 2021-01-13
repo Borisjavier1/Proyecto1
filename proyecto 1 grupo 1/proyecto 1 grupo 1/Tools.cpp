@@ -20,9 +20,7 @@ void printnError(string x) { cerr << "ERROR: " << x << "\n"; }
 int readInt() {
 	while (1) {
 		try {
-			int x;
-			cin >> x;
-			return x;
+			return stoi(read());
 		}catch (...) {
 			print("Digite un numero entero.\n");
 		}
@@ -64,4 +62,11 @@ void clearScreen() {
 void programExit()
 {
 	exit(0);
+}
+
+bool readBoolean() {
+	while (1) {
+		if (readInt() == 1) return true;
+		if (readInt() == 0) return false;
+	}
 }

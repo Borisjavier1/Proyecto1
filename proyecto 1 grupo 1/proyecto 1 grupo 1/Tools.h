@@ -18,4 +18,5 @@ long long readLongLong();
 void cont(); //continue
 void clearScreen();
 void programExit();
+bool readBoolean();
 #endif
