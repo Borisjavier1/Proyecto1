@@ -29,6 +29,7 @@ public:
 	void option5();
 	void option6();
 	void option7();
+	Person* getDataPerson();
 };
 
 #endif

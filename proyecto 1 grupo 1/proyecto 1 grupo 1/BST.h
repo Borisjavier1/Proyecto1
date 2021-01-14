@@ -134,15 +134,11 @@ void BST<T>::setSize(int size) {
 	this->size = size;
 }
 template<class T>
-inline T* BST<T>::recursiveSearchId(long long id, BSTNode<T>* cursor)
-{
-	if (cursor!=nullptr) {
-		 // If it is an external node it means that the searched item doesnt exist in the bt.
+inline T* BST<T>::recursiveSearchId(long long id, BSTNode<T>* cursor){
+	if (cursor) {
 		if (cursor->getData()) {
 			if (cursor->getData()->getId() == id)
-			{
 				return cursor->getData();
-			}
 			else if (id < cursor->getData()->getId())
 			{
 				return recursiveSearchId(id, cursor->getLeft());

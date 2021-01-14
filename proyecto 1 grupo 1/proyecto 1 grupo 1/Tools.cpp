@@ -29,24 +29,22 @@ int readInt() {
 float readFloat() {
 	while (1) {
 		try {
-			float x;
-			cin >> x;
-			return x;
+			return stof(read());
 		}
 		catch (...) {
-			print("Digite un numero entero.\n");
+			print("Digite un numero real.\n");
 		}
 	}
 }
 
 long long readLongLong() {
-	long long x;
-	cin >> x;
-	if (x == false) {
-		throw invalidData("Valores inválidos ingresados.\n");
-	}
-	else {
-		return x;
+	while (1) {
+		try {
+			return stoll(read());
+		}
+		catch (...) {
+			print("Digite un numero entero.\n");
+		}
 	}
 }
 
@@ -70,5 +68,6 @@ bool readBoolean() {
 		n = readInt();
 		if (n == 1) return true;
 		if (n == 0) return false;
+		printn("Digite 1 o 0.");
 	}
 }
