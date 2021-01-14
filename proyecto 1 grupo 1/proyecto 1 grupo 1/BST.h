@@ -158,8 +158,7 @@ inline T* BST<T>::search(long long id)
 	return recursiveSearchId(id, root);
 }
 template<class T>
-inline void BST<T>::moveData(HeapPriorityQueue<T>* queue, BSTNode<T>* cursor)
-{
+inline void BST<T>::moveData(HeapPriorityQueue<T>* queue, BSTNode<T>* cursor){
 	if (cursor)
 		if (cursor->getData()) {
 			moveData(queue, cursor->getLeft());

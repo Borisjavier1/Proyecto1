@@ -14,4 +14,5 @@ int main() {
 	Menu* main = new Menu();
 	main->mainMenu();
 	//delete main; //this is done internally
+	return 0;
 }

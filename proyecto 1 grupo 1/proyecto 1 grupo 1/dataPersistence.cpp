@@ -27,6 +27,7 @@ void DataPersistence::deserialize(BST<Person>* bst){
 		in.close();
 	}
 	else { throw FileError("Ruta del archivo no es valida o no hay permisos"); }
+	
 }
 void DataPersistence::serialize(BST<Person>* bst)
 {

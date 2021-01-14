@@ -72,7 +72,7 @@ void Vector<T>::setIndex(int idx, T* info) {
 }
 template <class T>
 T* Vector<T>::getByIndex(int pos) {
-	if (pos >= 0 && pos < v_size)
+	if (pos >= 0 && pos <= v_size)
 		return v[pos];
 	return nullptr;
 }

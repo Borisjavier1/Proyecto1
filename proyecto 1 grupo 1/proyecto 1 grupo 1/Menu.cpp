@@ -78,7 +78,7 @@ void Menu::option1() {
 		printn("¡Clientes tranferidos exitosamente!");
 	}else  
 		throw DataTransferred("Los clientes ya han sido tranferidos."); 
-	
+
 	cont();
 }
 void Menu::option2() {
@@ -114,8 +114,8 @@ void Menu::option3() {
 				"No hay más clientes por ser atendidos.");
 			else {
 				printf("[%d] Atendiendo a:\n",i+1);
-				printn(hpq->min()->toString());
-				hpq->removeMin();
+				printn(hpq->max()->toString());
+				hpq->removeMax();
 			}
 			printn("..........................................");
 		}
@@ -132,7 +132,7 @@ void Menu::option4() {
 		throw EmptyHeapPriorityQueue("La cola se encuentra vacía.");
 	else
 		printn("El siguiente cliente para ser atendido es: \n"+
-		hpq->min()->toString());
+		hpq->max()->toString());
 	cont();
 }
 void Menu::option5() {
@@ -147,11 +147,9 @@ void Menu::option5() {
 		int i= 0;
 		try {
 			while (!hpq->empty()) {
-				if (hpq->min()) {
-					printf("[%d] Atendiendo a:\n", ++i);
-					printn(hpq->min()->toString());
-					hpq->removeMin();
-				}
+				printf("[%d] Atendiendo a:\n", ++i);
+				printn(hpq->max()->toString());
+				hpq->removeMax();
 			}
 		}
 		catch (RuntimeException e) {

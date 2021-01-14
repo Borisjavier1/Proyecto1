@@ -1,6 +1,7 @@
 #pragma once
 #include "VectorCompleteTree.h"
 #include "IsMore.h"
+#include "Tools.h"
 template<typename T>
 class HeapPriorityQueue {
 protected:
@@ -11,8 +12,8 @@ public:
 	int size() const; // number of elements
 	bool empty() const; // is the queue empty?
 	void insert(T* e); // insert element
-	const T* min(); // minimum element
-	void removeMin();
+	const T* max(); // minimum element
+	void removeMax();
 	VectorCompleteTree<T>* getVCT();
 };
 template<typename T>
@@ -30,7 +31,7 @@ bool HeapPriorityQueue<T>::empty() const {
 	return size() == 0;
 }
 template<typename T> // minimum element
-const T* HeapPriorityQueue<T>::min(){
+const T* HeapPriorityQueue<T>::max(){
 	return vct->root();
 }
 template<typename T> // insert element
@@ -40,29 +41,39 @@ void HeapPriorityQueue<T>::insert(T* e) {
 	while (!vct->isRoot(v)) { // up-heap bubbling
 		T* u = vct->parent(v);
 		//if (!IsMore<T>(v, u)) break; // if v in order, we’re done
-	    if (*v > *u) break; // if v in order, we’re done
+	    if (*v < *u) break; // if v in order, we’re done
 		vct->swap(*v, *u); // . . .else swap with parent
 		*v = *u;
 	}
 }
 template<typename T> // remove minimum
-void HeapPriorityQueue<T>::removeMin() {
+void HeapPriorityQueue<T>::removeMax() {
 	if (empty()) throw EmptyHeapPriorityQueue("ERROR: La cola se encuentra vacía.");
 	if (size() == 1) // only one node?
 		vct->removeLast(); // . . .remove it
 	else {
 		T* u = vct->root(); // root position
+		cout << "//////////////////////////////////////////////\n";
+		cout << *u << "\n";
+		cout << *vct->last() << "\n";
+	
 		vct->swap(*u, *vct->last()); // swap last with root
+
 		vct->removeLast(); // . . .and remove last
+		cout << "//////////////////////////////////////////////\n";
+		cout << *u << "\n";
+		cout << *vct->last() << "\n";
+		cout << "//////////////////////////////////////////////\n";
+		cont();
 		while (vct->hasLeft(u)) { // down-heap bubbling
 			T* v = vct->left(u);
 			//if (vct.hasRight(u) && IsMore<T>((vct.right(u)), v))
 			if (vct->hasRight(u) && (*vct->right(u) > *v))
-				v = vct->right(u); // v is u’s smaller child
+				*v = *vct->right(u); // v is u’s smaller child
 			//if (IsMore<T>(v, u)) { // is u out of order?
 			if (*v > *u) { // is u out of order?
 				vct->swap(*u, *v); // . . .then swap
-				u = v;
+				*u = *v;
 			}
 			else break; // else we’re done
 		}
