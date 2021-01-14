@@ -89,8 +89,8 @@ void Vector<T>::push_back(T* elemento) {
 }
 template <class T>
 void Vector<T>::pop_back() {
-	delete v[v_size - 1];
-	v[v_size - 1] = nullptr;
+	delete v[v_size];
+	v[v_size] = nullptr;
 	v_size--;
 }
 template <class T>
