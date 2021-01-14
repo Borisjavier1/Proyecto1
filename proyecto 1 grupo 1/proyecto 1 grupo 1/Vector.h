@@ -2,7 +2,7 @@
 #include "Libraries.h"
 #include "VectorIterator.h"
 #include "RuntimeException.h"
-const int MAX_V = 100;
+const int MAX_V = 5;
 template <class T>
 class Vector {
 private:
@@ -27,6 +27,7 @@ public:
 	virtual bool empty();
 	virtual void setIndex(int idx,T* info);
 	virtual VectorIterator<T>* getIterator();
+	virtual void ensureCapacity();
 };
 
 template <class T>
@@ -37,6 +38,24 @@ Vector<T>::Vector(int tam) {
 	v = new T * [tam];
 	for (int i = 0; i < tam; i++)
 		v[i] = NULL;
+}
+template <class T>
+Vector<T>::~Vector() {
+	emptyVector();
+	delete[] this->v;
+}
+template <class T>
+void Vector<T>::ensureCapacity() {
+	if (v_size == v_capacity) {
+		v_capacity *= 2;
+		T** aux = new T * [this->v_capacity];
+		for (int i = 0; i < this->v_size; i++)
+			aux[i] = this->v[i];
+		for (int i = v_size; i < v_capacity; i++)
+			aux[i] = nullptr;
+		delete[] this->v;
+		this->v = aux;
+	}
 }
 template <class T>
 VectorIterator<T>* Vector<T>::getIterator() {
@@ -65,12 +84,6 @@ template <class T>
 void Vector<T>::setSize(int can) {
 	this->v_size = can;
 }
-template <class T>
-Vector<T>::~Vector() {
-	for (int i = 0; i < v_size; i++)
-		delete v[i];
-	delete[] this->v;
-}
 
 template <class T>
 string Vector<T>::toString() {
@@ -82,10 +95,10 @@ string Vector<T>::toString() {
 
 template <class T>
 void Vector<T>::push_back(T* elemento) {
-	if (v_size < v_capacity) {
-		v[v_size] = elemento;
-		v_size++;
-	}
+	ensureCapacity();
+	v[v_size] = elemento;
+	v_size++;
+	
 }
 template <class T>
 void Vector<T>::pop_back() {

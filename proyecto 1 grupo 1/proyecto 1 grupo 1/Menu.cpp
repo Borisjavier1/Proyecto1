@@ -147,9 +147,11 @@ void Menu::option5() {
 		int i= 0;
 		try {
 			while (!hpq->empty()) {
-				printf("[%d] Atendiendo a:\n", ++i);
-				printn(hpq->min()->toString());
-				hpq->removeMin();
+				if (hpq->min()) {
+					printf("[%d] Atendiendo a:\n", ++i);
+					printn(hpq->min()->toString());
+					hpq->removeMin();
+				}
 			}
 		}
 		catch (RuntimeException e) {
