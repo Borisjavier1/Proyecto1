@@ -82,18 +82,23 @@ void Menu::option1() {
 	cont();
 }
 void Menu::option2() {
-	long long id;
 	clearScreen();
 	printn("..............................................................................");
 	printn("Opción 2: Encolar un cliente.");
 	printn("..............................................................................");
 	printn("Ingrese el número de cédula de la persona que desea encolar.");
-	id = readLongLong();
-	if (!bst->search(id)) { throw ClientNotFound("No existe la persona con el número de cédula digitado.\n"); }
+	long long id = readLongLong();
+	Person* p = bst->search(id);
+	if (!p) { throw ClientNotFound("No existe la persona con el número de cédula digitado.\n"); }
 	else {
-		hpq->insert(bst->search(id));
-		printn("Cliente ingresado correctamente."); cont();
+		if (hpq->getVCT()->searchById(id))
+			throw DuplicatedClient("¡El cliente "+ p->getName() + " ya se encuentra en cola!");
+		else {
+			hpq->insert(p);
+			printn("Cliente ingresado correctamente.");
+		}
 	}
+	cont();
 }
 void Menu::option3() {
 	clearScreen();
@@ -140,10 +145,15 @@ void Menu::option5() {
 	else {
 		printn("¡Atendiendo a todos los clientes!");
 		int i= 0;
-		while (!hpq->empty()) {
-			printf("[%d] Atendiendo a:\n", ++i);
-			printn(hpq->min()->toString());
-			hpq->removeMin();
+		try {
+			while (!hpq->empty()) {
+				printf("[%d] Atendiendo a:\n", ++i);
+				printn(hpq->min()->toString());
+				hpq->removeMin();
+			}
+		}
+		catch (RuntimeException e) {
+			throw e;
 		}
 	}
 	cont();
@@ -179,14 +189,13 @@ Person* Menu::getDataPerson() {
 		int category;
 		while (1) {
 			category = readInt();
-			if (category <= 3 and category >= 1) {
-				printn("La persona ha sido creada. ");
+			if (category <= 3 and category >= 1) 
 				return new Person(name, id, withChild, pregnant, elderly, category);
-			}else 
+			else 
 				printn("Digite un numero entre 1 y 3");
 		}
 	}else
-		printn("El ID de la persona ya existe. No puede ingresar personas repetidas al sistema.");
+		throw DuplicatedClient("El ID de la persona ya existe. No puede ingresar personas repetidas al sistema.");
 	return nullptr;
 }
 void Menu::option7()

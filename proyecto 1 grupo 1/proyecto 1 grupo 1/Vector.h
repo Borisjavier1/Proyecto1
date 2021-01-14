@@ -19,6 +19,7 @@ public:
 	virtual bool remove(T* data);
 	virtual int getPosition(T* data);
 	virtual bool search(T* data);
+	virtual bool searchById(long long id);
 	virtual void emptyVector();
 	virtual T* getByIndex(int pos);
 	virtual int size();
@@ -32,6 +33,7 @@ template <class T>
 Vector<T>::Vector(int tam) {
 	this->v_capacity = tam;
 	this->v_size = 0;
+	this->ite = nullptr;
 	v = new T * [tam];
 	for (int i = 0; i < tam; i++)
 		v[i] = NULL;
@@ -109,6 +111,14 @@ bool Vector<T>::search(T* elemento) {//Búsqueda lineal, se debe arreglar para re
 	if (*v[0] == *elemento) return 0;
 	for (int i = 0; i < v_size; i++)
 		if (*elemento == *(v[i]))
+			return true;
+	return false;
+}
+template <class T>
+bool Vector<T>::searchById(long long id) {//Búsqueda lineal, se debe arreglar para reducir el tiempo O(n)
+	if (!v_size) return false;
+	for (int i = 0; i < v_size; i++)
+		if (id == (v[i]->getId()))
 			return true;
 	return false;
 }

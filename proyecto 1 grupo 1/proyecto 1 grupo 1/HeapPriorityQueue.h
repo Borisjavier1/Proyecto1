@@ -13,11 +13,14 @@ public:
 	void insert(T* e); // insert element
 	const T* min(); // minimum element
 	void removeMin();
+	VectorCompleteTree<T>* getVCT();
 };
 template<typename T>
 HeapPriorityQueue<T>::HeapPriorityQueue() { vct = new VectorCompleteTree<T>(); }
 template<typename T>
 HeapPriorityQueue<T>::~HeapPriorityQueue() { delete vct; }
+template<typename T>
+VectorCompleteTree<T>* HeapPriorityQueue<T>::getVCT() { return vct; }
 template<typename T> // number of elements
 int HeapPriorityQueue<T>::size() const {
 	return vct->size();

@@ -45,9 +45,9 @@ public:
 	IndexOverflow(const string& error) : RuntimeException(error) {}
 };
 
-class DuplicateClient : public RuntimeException {
+class DuplicatedClient : public RuntimeException {
 public:
-	DuplicateClient(const string& error) : RuntimeException(error) {}
+	DuplicatedClient(const string& error) : RuntimeException(error) {}
 };
 
 class EmptyVector : public RuntimeException {

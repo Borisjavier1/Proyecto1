@@ -33,6 +33,7 @@ public:
 		s << v->toString();
 		return s.str();
 	}
+	bool searchById(long long id) {return v->searchById(id);}
 protected:
 	T* pos(int i) { return v->getByIndex(i); }
 	int idx(T* info) { return v->getPosition(info); }
