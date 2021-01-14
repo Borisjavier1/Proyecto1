@@ -102,6 +102,7 @@ bool Vector<T>::remove(T* elemento) {
 	delete aux;
 	v[v_size] = nullptr;//El final queda apuntando a NULL
 	v_size--;
+
 	return true;
 }
 
