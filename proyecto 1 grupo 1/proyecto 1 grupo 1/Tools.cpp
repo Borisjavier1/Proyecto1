@@ -65,8 +65,10 @@ void programExit()
 }
 
 bool readBoolean() {
+	int n;
 	while (1) {
-		if (readInt() == 1) return true;
-		if (readInt() == 0) return false;
+		n = readInt();
+		if (n == 1) return true;
+		if (n == 0) return false;
 	}
 }

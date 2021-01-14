@@ -99,7 +99,7 @@ void Menu::option3() {
 	if (hpq->empty()) throw EmptyHeapPriorityQueue("La cola se encuentra vacía.");
 	printn("............................................");
 	try {
-		for (int i = 0; i < 101; i++) {
+		for (int i = 0; i < MAX_TO_SHOW; i++) {
 			if (hpq->empty())  throw EmptyHeapPriorityQueue(
 				"No hay más clientes por ser atendidos.");
 			else {
