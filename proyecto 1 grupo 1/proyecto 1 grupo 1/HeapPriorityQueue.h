@@ -41,30 +41,20 @@ void HeapPriorityQueue<T>::insert(T* e) {
 	while (!vct->isRoot(v)) { // up-heap bubbling
 		T* u = vct->parent(v);
 		//if (!IsMore<T>(v, u)) break; // if v in order, we’re done
-	    if (*v < *u) break; // if v in order, we’re done
+		if (*v > *u) break; // if v in order, we’re done
 		vct->swap(*v, *u); // . . .else swap with parent
 		*v = *u;
 	}
 }
-template<typename T> // remove minimum
+template<typename T> 
 void HeapPriorityQueue<T>::removeMax() {
 	if (empty()) throw EmptyHeapPriorityQueue("ERROR: La cola se encuentra vacía.");
 	if (size() == 1) // only one node?
 		vct->removeLast(); // . . .remove it
 	else {
 		T* u = vct->root(); // root position
-		cout << "//////////////////////////////////////////////\n";
-		cout << *u << "\n";
-		cout << *vct->last() << "\n";
-	
 		vct->swap(*u, *vct->last()); // swap last with root
-
 		vct->removeLast(); // . . .and remove last
-		cout << "//////////////////////////////////////////////\n";
-		cout << *u << "\n";
-		cout << *vct->last() << "\n";
-		cout << "//////////////////////////////////////////////\n";
-		cont();
 		while (vct->hasLeft(u)) { // down-heap bubbling
 			T* v = vct->left(u);
 			//if (vct.hasRight(u) && IsMore<T>((vct.right(u)), v))

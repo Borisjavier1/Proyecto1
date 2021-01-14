@@ -78,7 +78,6 @@ void Menu::option1() {
 		printn("¡Clientes tranferidos exitosamente!");
 	}else  
 		throw DataTransferred("Los clientes ya han sido tranferidos."); 
-
 	cont();
 }
 void Menu::option2() {

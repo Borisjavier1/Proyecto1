@@ -127,15 +127,15 @@ void Person::serialize(ostream& out)
     out << this->category;
 }
 
-string Person::toString() const
-{
+string Person::toString() const{
     stringstream s;
-    s << "Nombre: " << name << endl;
-    s << "ID: " << id << endl;
-    s << "Con hijo: " << withChild << endl;
-    s << "Embarazada: " << pregnant << endl;
-    s << "Adulto mayor: " << elderly << endl;
-    s << "category: " << category << endl;
+    s << "ID: " << id << "\n";
+    s << "Nombre: " << name << "\n";
+    s << "Prioridad: " << priority() << "\n";
+    s << "Con hijo: " << withChild << "\n";
+    s << "Embarazada: " << pregnant << "\n";
+    s << "Adulto mayor: " << elderly << "\n";
+    s << "Categoría: " << category << "\n";
     return s.str();
 }
 
@@ -155,5 +155,8 @@ bool Person::operator == (const Person& p2) const {
 
 bool Person::operator > (const Person& p2) const {
     return (this->priority() > p2.priority());
+}
+bool Person::operator <= (const Person& p2) const {
+    return (this->priority() <= p2.priority());
 }
 

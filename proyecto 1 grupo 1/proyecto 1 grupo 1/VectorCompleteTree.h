@@ -18,6 +18,7 @@ public:
 	T* root() { return pos(0); }
 	T* last() { return pos(v->size()-1); }
 	void addLast(T* t) { v->push_back(t); }
+	Vector<T>* getVector() { return v; }
 	T* biggest() {
 		VectorIterator<T>* ite = v->getIterator();
 		return ite->begin();
