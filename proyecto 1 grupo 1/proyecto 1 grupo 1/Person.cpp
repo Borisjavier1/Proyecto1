@@ -17,7 +17,16 @@ bool Person::StoBool(string value)
 string Person::BtoString(bool value){
     if (value == true)
         return "Yes";
+    else
     return "No";
+}
+
+string Person::booleanToText(bool value) const
+{
+    if (value == true)
+        return "verdadero";
+    else
+        return "falso";
 }
 
 Person::Person(string name, long long id, bool withChild, bool pregnant, bool elderly, int category)
@@ -132,9 +141,9 @@ string Person::toString() const{
     s << "ID: " << id << "\n";
     s << "Nombre: " << name << "\n";
     s << "Prioridad: " << priority() << "\n";
-    s << "Con hijo: " << withChild << "\n";
-    s << "Embarazada: " << pregnant << "\n";
-    s << "Adulto mayor: " << elderly << "\n";
+    s << "Con hijo: " << booleanToText(withChild) << "\n";
+    s << "Embarazada: " << booleanToText(pregnant) << "\n";
+    s << "Adulto mayor: " << booleanToText(elderly) << "\n";
     s << "Categoría: " << category << "\n";
     return s.str();
 }

@@ -17,6 +17,7 @@ private:
 	int category;
     bool StoBool(string value);
     string BtoString(bool value);
+    string booleanToText(bool value) const;
 public:
 	Person(string name = "", long long id = 0, bool withChild = false, bool pregnant = false, bool elderly = false, int category = 0);
     Person(istream& input);
