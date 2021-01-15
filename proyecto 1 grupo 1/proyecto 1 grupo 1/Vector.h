@@ -72,7 +72,7 @@ void Vector<T>::setIndex(int idx, T* info) {
 }
 template <class T>
 T* Vector<T>::getByIndex(int pos) {
-	if (pos >= 0 && pos <= v_size)
+	if (pos >= 0 && pos < v_size)
 		return v[pos];
 	return nullptr;
 }
@@ -102,8 +102,8 @@ void Vector<T>::push_back(T* elemento) {
 }
 template <class T>
 void Vector<T>::pop_back(bool ersMem) {
-	if(ersMem) delete v[v_size];
-	v[v_size] = nullptr;
+	if(ersMem) delete v[v_size-1];
+	v[v_size-1] = nullptr;
 	v_size--;
 }
 template <class T>
@@ -138,8 +138,6 @@ bool Vector<T>::searchById(long long id) {//Búsqueda lineal, se debe arreglar pa
 }
 template <class T>
 int Vector<T>::getPosition(T* elemento) {//Búsqueda lineal, se debe arreglar para reducir el tiempo O(n)
-	if (!v_size) return -1;
-	if (v_size == 1) if (v[0] == elemento) return 0;
 	for (int i = 0; i < v_size; i++)
 		if (*elemento == *v[i])
 			return i;

@@ -27,7 +27,7 @@ protected:
 	virtual BSTNode<T>* recursiveFindMax(BSTNode<T>*);
 public:
 	T* search(long long);
-	void moveData(HeapPriorityQueue<T>* queue, BSTNode<T>* cursor);
+	void moveData(HeapPriorityQueue<T>* queue, BSTNode<T>* cursor, int& c);
 	virtual string inOrder(BSTNode<T>*);
 	virtual string postOrder(BSTNode<T>*);
 	virtual string preOrder(BSTNode<T>*);
@@ -158,12 +158,12 @@ inline T* BST<T>::search(long long id)
 	return recursiveSearchId(id, root);
 }
 template<class T>
-inline void BST<T>::moveData(HeapPriorityQueue<T>* queue, BSTNode<T>* cursor){
+inline void BST<T>::moveData(HeapPriorityQueue<T>* queue, BSTNode<T>* cursor, int&c){
 	if (cursor)
 		if (cursor->getData()) {
-			moveData(queue, cursor->getLeft());
-			queue->insert(cursor->getData());
-			moveData(queue, cursor->getRight());
+			moveData(queue, cursor->getLeft(),c);
+			queue->insert(cursor->getData(),c);
+			moveData(queue, cursor->getRight(),c);
 		}
 }
 template<class T>

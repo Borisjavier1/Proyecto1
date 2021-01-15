@@ -29,21 +29,21 @@ protected:
 	int idx(T* info);
 };
 template<typename T>
-VectorCompleteTree<T>:: VectorCompleteTree() { v = new Vector<T>(); }
+VectorCompleteTree<T>::VectorCompleteTree() { v = new Vector<T>(); }
 template<typename T>
 VectorCompleteTree<T>::~VectorCompleteTree() { delete v; }
 template<typename T>
 int VectorCompleteTree<T>::size() { return v->size(); }
 template<typename T>
-T* VectorCompleteTree<T>::left(T* p) { return pos(2 * idx(p)); }
+T* VectorCompleteTree<T>::left(T* p) { return pos((2 * idx(p))+1); }
 template<typename T>
-T* VectorCompleteTree<T>::right(T* p) { return pos(2 * idx(p)); }
+T* VectorCompleteTree<T>::right(T* p) { return pos((2 * idx(p))+2); }
 template<typename T>
-T* VectorCompleteTree<T>::parent(T* p) { return pos(idx(p) / 2); }
+T* VectorCompleteTree<T>::parent(T* p) { return pos((idx(p) -1) / 2); }
 template<typename T>
-bool VectorCompleteTree<T>::hasLeft(T* p) { return 2 * idx(p) <= v->size(); }
+bool VectorCompleteTree<T>::hasLeft(T* p) { return (2 * idx(p)) <= v->size(); }
 template<typename T>
-bool VectorCompleteTree<T>::hasRight(T* p) { return 2 * idx(p) <= v->size(); }
+bool VectorCompleteTree<T>::hasRight(T* p) { return (2 * idx(p)) +1 <= v->size(); }
 template<typename T>
 bool VectorCompleteTree<T>::isRoot(T* p) { return idx(p) == 0; }
 template<typename T>

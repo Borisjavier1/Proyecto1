@@ -168,4 +168,6 @@ bool Person::operator > (const Person& p2) const {
 bool Person::operator <= (const Person& p2) const {
     return (this->priority() <= p2.priority());
 }
-
+bool Person::operator >= (const Person& p2) const {
+    return (this->priority() <= p2.priority());
+}
