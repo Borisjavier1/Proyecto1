@@ -108,14 +108,10 @@ void Menu::option3() {
 	if (hpq->empty()) throw EmptyHeapPriorityQueue("La cola se encuentra vacía.");
 	printn("............................................");
 	try {
-		for (int i = 0; i < MAX_TO_SHOW; i++) {
-			if (hpq->empty())  throw EmptyHeapPriorityQueue(
-				"No hay más clientes por ser atendidos.");
-			else {
-				printf("[%d] Atendiendo a:\n",i+1);
-				printn(hpq->max()->toString());
-				hpq->removeMax();
-			}
+		for (int i = 0; i < MAX_TO_SHOW && !hpq->empty(); i++) {
+			printf("[%d] Atendiendo a:\n",i+1);
+			printn(hpq->max()->toString());
+			hpq->removeMax();
 			printn("..........................................");
 		}
 	}

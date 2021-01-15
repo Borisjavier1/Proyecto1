@@ -41,7 +41,7 @@ void HeapPriorityQueue<T>::insert(T* e) {
 	while (!vct->isRoot(v)) { // up-heap bubbling
 		T* u = vct->parent(v);
 		//if (!IsMore<T>(v, u)) break; // if v in order, we’re done
-		if (*v > *u) break; // if v in order, we’re done
+		if (*u <= *v) break; // if v in order, we’re done
 		vct->swap(*v, *u); // . . .else swap with parent
 		*v = *u;
 	}

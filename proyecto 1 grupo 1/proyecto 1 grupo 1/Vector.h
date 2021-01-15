@@ -15,7 +15,7 @@ public:
 	virtual ~Vector();
 	virtual string toString();
 	virtual void push_back(T* data);
-	virtual void pop_back();
+	virtual void pop_back(bool = false);//if ersMem flag is enabled, memory of the object will be erased, otherwise not.
 	virtual bool remove(T* data);
 	virtual int getPosition(T* data);
 	virtual bool search(T* data);
@@ -101,8 +101,8 @@ void Vector<T>::push_back(T* elemento) {
 	
 }
 template <class T>
-void Vector<T>::pop_back() {
-	delete v[v_size];
+void Vector<T>::pop_back(bool ersMem) {
+	if(ersMem) delete v[v_size];
 	v[v_size] = nullptr;
 	v_size--;
 }
