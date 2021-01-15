@@ -15,6 +15,7 @@ public:
 	const T* max(); // minimum element
 	void removeMax();
 	VectorCompleteTree<T>* getVCT();
+
 };
 template<typename T>
 HeapPriorityQueue<T>::HeapPriorityQueue() { vct = new VectorCompleteTree<T>(); }
@@ -36,36 +37,31 @@ const T* HeapPriorityQueue<T>::max(){
 }
 template<typename T> // insert element
 void HeapPriorityQueue<T>::insert(T* e) {
-	vct->addLast(e); // add e to heap
-	T* v = vct->last(); // e’s position
-	while (!vct->isRoot(v)) { // up-heap bubbling
+	vct->addLast(e);
+	T* v = vct->last();
+	while (!vct->isRoot(v)) {
 		T* u = vct->parent(v);
-		//if (!IsMore<T>(v, u)) break; // if v in order, we’re done
-		if (*v > *u) break; // if v in order, we’re done
-		vct->swap(*v, *u); // . . .else swap with parent
+		if (*v <= *u) break;
+		vct->swap(*v, *u);
 		*v = *u;
 	}
 }
 template<typename T> // remove minimum
 void HeapPriorityQueue<T>::removeMax() {
 	if (empty()) throw EmptyHeapPriorityQueue("ERROR: La cola se encuentra vacía.");
-	if (size() == 1) // only one node?
-		vct->removeLast(); // . . .remove it
+	if (size() == 1) vct->removeLast();
 	else {
-		T* u = vct->root(); // root position
-		vct->swap(*u, *vct->last()); // swap last with root
-		vct->removeLast(); // . . .and remove last
-		while (vct->hasLeft(u)) { // down-heap bubbling
+		T* u = vct->root();
+		vct->swap(*u, *vct->last());
+		vct->removeLast();
+		while (vct->hasLeft(u)) { 
 			T* v = vct->left(u);
-			//if (vct.hasRight(u) && IsMore<T>((vct.right(u)), v))
 			if (vct->hasRight(u) && (*vct->right(u) > *v))
-				*v = *vct->right(u); // v is u’s smaller child
-			//if (IsMore<T>(v, u)) { // is u out of order?
-			if (*v > *u) { // is u out of order?
-				vct->swap(*u, *v); // . . .then swap
+				*v = *vct->right(u); 
+			if (*v > *u) {
+				vct->swap(*u, *v);
 				*u = *v;
-			}
-			else break; // else we’re done
+			}else break;
 		}
 	}
 }
