@@ -74,8 +74,7 @@ void Menu::option1() {
 	printn("Opción 1: Encolar todos los clientes.");
 	printn("..............................................................................");
 	if (hpq->empty()) {
-		int c = 0;
-		bst->moveData(hpq, bst->getRoot(),c);
+		bst->moveData(hpq, bst->getRoot());
 		printn("¡Clientes tranferidos exitosamente!");
 	}else  
 		throw DataTransferred("Los clientes ya han sido tranferidos."); 
@@ -95,7 +94,7 @@ void Menu::option2() {
 			throw DuplicatedClient("¡El cliente "+ p->getName() + " ya se encuentra en cola!");
 		else {
 			int c = 0;
-			hpq->insert(p,c);
+			hpq->insert(p);
 			printn("Cliente ingresado correctamente.");
 		}
 	}
