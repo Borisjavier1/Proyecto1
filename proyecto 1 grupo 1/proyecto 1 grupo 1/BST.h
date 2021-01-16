@@ -116,8 +116,8 @@ template <class T>
 string BST<T>::toString() {
 	stringstream s;
 	s << "Quantity of items: " << size << "\n";
-	//s << "Pre-order traversal(P,L,R): \n" << preOrder(root) << "\n";
-	//s << "Post-order traversal(L,R,P): \n" << postOrder(root) << "\n";
+	s << "Pre-order traversal(P,L,R): \n" << preOrder(root) << "\n";
+	s << "Post-order traversal(L,R,P): \n" << postOrder(root) << "\n";
 	s << "In-order traversal(L,P,R): \n" << inOrder(root) << "\n";
 	return s.str();
 }
@@ -192,6 +192,7 @@ inline bool BST<T>::recursiveInsert(T* info , BSTNode<T>* cursor)
 
 	}
 	return false;
+
 }
 /*
 template <class T>

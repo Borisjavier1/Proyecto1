@@ -28,7 +28,7 @@ void Menu::startScreen() {
 	printn("	-Arnoldo González Quesada.");
 	printn("	-Boris Monge Chaves.");
 	printn("	-Carlos Álvarez Ramírez.");
-	printn("Grupo #1.");
+	printn("Grupo #2.");
 	printn("Proyecto I. Estructuras de datos. EIF-207.");
 	printn("Escuela de informática. Universidad Nacional. Heredia, Costa Rica.");
 	printn("Profesor: Ms.C Gregorio Villalobos Camacho.");
@@ -76,6 +76,7 @@ void Menu::option1() {
 	if (hpq->empty()) {
 		bst->moveData(hpq, bst->getRoot());
 		printn("¡Clientes tranferidos exitosamente!");
+		cout << bst->inOrder(bst->getRoot()) << endl<<endl;
 	}else  
 		throw DataTransferred("Los clientes ya han sido tranferidos."); 
 	cont();
@@ -197,9 +198,9 @@ Person* Menu::getDataPerson() {
 void Menu::option7()
 {
 	printn("Gracias por usar este programa!"); 
-	// aquí va probé serialización 
-	//try { data->deserialize(bst); }
-	//catch (RuntimeException e) { printn(e.ErrorMessage()); cont(); }
+	
+	try { data->serialize(bst); }
+	catch (RuntimeException e) { printn(e.ErrorMessage()); cont(); }
 	delete this;
 	programExit();
 }
