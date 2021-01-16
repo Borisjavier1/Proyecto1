@@ -1,6 +1,5 @@
 #pragma once
 #include "VectorCompleteTree.h"
-#include "IsMore.h"
 #include "Tools.h"
 template<typename T>
 class HeapPriorityQueue {
@@ -15,7 +14,6 @@ public:
 	const T* max(); // minimum element
 	void removeMax();
 	VectorCompleteTree<T>* getVCT();
-
 };
 template<typename T>
 HeapPriorityQueue<T>::HeapPriorityQueue() { vct = new VectorCompleteTree<T>(); }
@@ -32,36 +30,41 @@ bool HeapPriorityQueue<T>::empty() const {
 	return size() == 0;
 }
 template<typename T> // minimum element
-const T* HeapPriorityQueue<T>::max(){
+const T* HeapPriorityQueue<T>::max() {
 	return vct->root();
 }
 template<typename T> // insert element
 void HeapPriorityQueue<T>::insert(T* e) {
-	vct->addLast(e);
-	T* v = vct->last();
-	while (!vct->isRoot(v)) {
+	vct->addLast(e); // add e to heap
+	T* v = vct->last(); // e’s position
+	while (!vct->isRoot(v)) { // up-heap bubbling
 		T* u = vct->parent(v);
-		if (*v <= *u) break;
-		vct->swap(*v, *u);
+		//if (!IsMore<T>(v, u)) break; // if v in order, we’re done
+		if (*u <= *v) break; // if v in order, we’re done
+		vct->swap(*v, *u); // . . .else swap with parent
 		*v = *u;
 	}
 }
-template<typename T> // remove minimum
+template<typename T>
 void HeapPriorityQueue<T>::removeMax() {
 	if (empty()) throw EmptyHeapPriorityQueue("ERROR: La cola se encuentra vacía.");
-	if (size() == 1) vct->removeLast();
+	if (size() == 1) // only one node?
+		vct->removeLast(); // . . .remove it
 	else {
-		T* u = vct->root();
-		vct->swap(*u, *vct->last());
-		vct->removeLast();
-		while (vct->hasLeft(u)) { 
+		T* u = vct->root(); // root position
+		vct->swap(*u, *vct->last()); // swap last with root
+		vct->removeLast(); // . . .and remove last
+		while (vct->hasLeft(u)) { // down-heap bubbling
 			T* v = vct->left(u);
+			//if (vct.hasRight(u) && IsMore<T>((vct.right(u)), v))
 			if (vct->hasRight(u) && (*vct->right(u) > *v))
-				*v = *vct->right(u); 
-			if (*v > *u) {
-				vct->swap(*u, *v);
+				*v = *vct->right(u); // v is u’s smaller child
+			//if (IsMore<T>(v, u)) { // is u out of order?
+			if (*v > *u) { // is u out of order?
+				vct->swap(*u, *v); // . . .then swap
 				*u = *v;
-			}else break;
+			}
+			else break; // else we’re done
 		}
 	}
 }

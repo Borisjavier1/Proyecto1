@@ -148,7 +148,6 @@
   <ItemGroup>
     <ClInclude Include="BST.h" />
     <ClInclude Include="BSTNode.h" />
-    <ClInclude Include="IsMore.h" />
     <ClInclude Include="Iterator.h" />
     <ClInclude Include="Libraries.h" />
     <ClInclude Include="DataPersistence.h" />
