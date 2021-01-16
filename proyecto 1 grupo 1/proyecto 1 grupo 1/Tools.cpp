@@ -13,17 +13,16 @@ string read() {
 	return x;
 }
 void print(string x) { cout << x; }
-void printn(string x) { cout << x <<"\n"; }
+void printn(string x) { cout << x << "\n"; }
 void printnError(string x) { cerr << "ERROR: " << x << "\n"; }
 
 
 int readInt() {
 	while (1) {
 		try {
-			int x;
-			cin >> x;
-			return x;
-		}catch (...) {
+			return stoi(read());
+		}
+		catch (...) {
 			print("Digite un numero entero.\n");
 		}
 	}
@@ -31,24 +30,22 @@ int readInt() {
 float readFloat() {
 	while (1) {
 		try {
-			float x;
-			cin >> x;
-			return x;
+			return stof(read());
 		}
 		catch (...) {
-			print("Digite un numero entero.\n");
+			print("Digite un numero real.\n");
 		}
 	}
 }
 
 long long readLongLong() {
-	long long x;
-	cin >> x;
-	if (x == false) {
-		throw invalidData("Valores inválidos ingresados.\n");
-	}
-	else {
-		return x;
+	while (1) {
+		try {
+			return stoll(read());
+		}
+		catch (...) {
+			print("Digite un numero entero.\n");
+		}
 	}
 }
 
@@ -64,4 +61,14 @@ void clearScreen() {
 void programExit()
 {
 	exit(0);
+}
+
+bool readBoolean() {
+	int n;
+	while (1) {
+		n = readInt();
+		if (n == 1) return true;
+		if (n == 0) return false;
+		printn("Digite 1 o 0.");
+	}
 }

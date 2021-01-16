@@ -1,6 +1,5 @@
 #pragma once
 #include "Libraries.h"
-#include "vector.h"
 #include<algorithm>
 template <typename T>
 class HeapPriorityQueue
@@ -23,6 +22,7 @@ public:
     int rightChild(int index);
     int leftChild(int index);
     string toString();
+    bool empty();
    
 };
 
@@ -65,8 +65,7 @@ inline HeapPriorityQueue<T>::HeapPriorityQueue()
 template<typename T>
 inline HeapPriorityQueue<T>::~HeapPriorityQueue()
 {
-    if (this->size > 0)
-        delete[] vector;
+     
 }
 
 template <typename T>
@@ -133,6 +132,12 @@ inline string HeapPriorityQueue<T>::toString()
         s << vector[i]->toString();
     }
     return s.str();
+}
+
+template<typename T>
+inline bool HeapPriorityQueue<T>::empty()
+{
+    return getSize() == 0;
 }
 
 

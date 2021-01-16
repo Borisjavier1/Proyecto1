@@ -8,17 +8,18 @@
 #include "Libraries.h"
 class Person
 {
-private: 
-	string name;
-	long long id;
-	bool withChild;
-	bool pregnant;
-	bool elderly;
-	int category;
+private:
+    string name;
+    long long id;
+    bool withChild;
+    bool pregnant;
+    bool elderly;
+    int category;
     bool StoBool(string value);
     string BtoString(bool value);
+    string booleanToText(bool value) const;
 public:
-	Person(string name = "", long long id = 0, bool withChild = false, bool pregnant = false, bool elderly = false, int category = 0);
+    Person(string name = "", long long id = 0, bool withChild = false, bool pregnant = false, bool elderly = false, int category = 0);
     Person(istream& input);
     string getName() const;
     void setName(string name);
@@ -34,12 +35,12 @@ public:
     void setCategory(int category);
     void serialize(ostream& out);
     string toString() const;
-    //ostream& operator <<(ostream& o);
-
+    int priority() const; //Calculate priority
     bool operator < (const Person& p2) const;
     bool operator == (const Person& p2) const;
     bool operator > (const Person& p2) const;
-  
-}; 
-//ostream& operator << (ostream& o, const Person& p2);
-ostream& operator <<(ostream& o, const Person& p2);
+    bool operator <= (const Person& p2) const;
+    bool operator >= (const Person& p2) const;
+
+};
+ostream& operator << (ostream& o, const Person& p2);

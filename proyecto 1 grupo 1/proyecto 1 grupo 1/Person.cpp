@@ -8,18 +8,25 @@
 
 bool Person::StoBool(string value)
 {
-    if (value == "Yes")  
-        return true; 
-    else 
+    if (value == "Yes")
+        return true;
+    else
         return false;
 }
 
-string Person::BtoString(bool value)
-{
+string Person::BtoString(bool value) {
     if (value == true)
         return "Yes";
     else
         return "No";
+}
+
+string Person::booleanToText(bool value) const
+{
+    if (value == true)
+        return "verdadero";
+    else
+        return "falso";
 }
 
 Person::Person(string name, long long id, bool withChild, bool pregnant, bool elderly, int category)
@@ -31,7 +38,17 @@ Person::Person(string name, long long id, bool withChild, bool pregnant, bool el
     this->elderly = elderly;
     this->category = category;
 }
-
+int Person::priority() const { //Calculate priority
+    const int TOTAL = 100;
+    float per = 0.0f;//percentage;
+    if (this->withChild) per += 0.20;
+    if (this->pregnant) per += 0.25;
+    if (this->elderly) per += 0.35;
+    if (this->category == 1) per += 0.20;
+    if (this->category == 2) per += 0.10;
+    //category 3 has 0% percentage, so, it does not affect the priority.
+    return int(TOTAL * per);
+}
 Person::Person(istream& input)
 {
     string temp;
@@ -109,8 +126,7 @@ void Person::setCategory(int category)
     this->category = category;
 }
 
-void Person::serialize(ostream& out)
-{
+void Person::serialize(ostream& out) {
     out << this->name << ",";
     out << this->id << ",";
     out << BtoString(this->withChild) << ",";
@@ -119,67 +135,38 @@ void Person::serialize(ostream& out)
     out << this->category;
 }
 
-string Person::toString() const
-{
+string Person::toString() const {
     stringstream s;
-    s << "Nombre: " << name << endl;
-    s << "ID: " << id << endl;
-    s << "Con hijo: " << withChild << endl;
-    s << "Embarazada: " << pregnant << endl;
-    s << "Adulto mayor: " << elderly << endl;
-    s << "category: " << category << endl;
+    s << "ID: " << id << "\n";
+    s << "Nombre: " << name << "\n";
+    s << "Prioridad: " << priority() << "\n";
+    s << "Con hijo: " << booleanToText(withChild) << "\n";
+    s << "Embarazada: " << booleanToText(pregnant) << "\n";
+    s << "Adulto mayor: " << booleanToText(elderly) << "\n";
+    s << "Categoría: " << category << "\n";
     return s.str();
 }
 
-/*
-ostream& operator <<(ostream& o, const Person& p2) {
-    o << p2.toString();
-    return o;
-}
-*/
+
 ostream& operator <<(ostream& o, const Person& p2) {
     o << p2.toString();
     return o;
 }
 
 bool  Person::operator <(const Person& p2) const {
-    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
-    /*
-    //This also could be as:
-    //The conditions are asked separately in order to get a sum that details which person has more priority.
-    if (this->withChild) con_p1++;
-    if (this->pregnant) con_p1++;
-    if (this->elderly) con_p1++;
-    if (p2.withChild) con_p2++;
-    if (p2.pregnant) con_p2++;
-    if (p2.elderly) con_p2++;
-    return con_p1 < con_p2;
-
-    or to be read in an easier way: 
-
-    return (int(this->withChild) + int(this->pregnant) + int(this->elderly) + con_p1)
-    < (int(p2.withChild) + int(p2.pregnant) + int(p2.elderly) + con_p2);
- 
-    */
-    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
-    < (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
-
+    return (this->priority() < p2.priority());
 }
 
 bool Person::operator == (const Person& p2) const {
-    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
-    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
-        == (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
+    return (this->priority() == p2.priority());
 }
 
 bool Person::operator > (const Person& p2) const {
-    int con_p1 = this->getCategory(), con_p2 = p2.getCategory();//conditions
-    return (this->getWithChild() + this->getPregnant() + this->getElderly() + con_p1)
-        > (p2.getWithChild() + p2.getPregnant() + p2.getElderly() + con_p2);
+    return (this->priority() > p2.priority());
 }
-
-ostream& operator<<(ostream& o, const Person& p2)
-{
-    o << p2.toString();
-    return o;
+bool Person::operator <= (const Person& p2) const {
+    return (this->priority() <= p2.priority());
+}
+bool Person::operator >= (const Person& p2) const {
+    return (this->priority() <= p2.priority());
 }

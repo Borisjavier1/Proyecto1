@@ -8,6 +8,7 @@
 #define BST_H
 #include "Tree.h"
 #include "RuntimeException.h"
+#include "HeapPriorityQueue.h"
 template <class T>
 class BST : public Tree<T> {
 private:
@@ -16,16 +17,15 @@ private:
 protected:
 	int size;
 	BSTNode<T>* root;
-	//virtual bool recursiveInsert(T*, BSTNode<T>*);
 	virtual bool recursiveInsert(T*, BSTNode<T>*);
 	virtual bool recursiveSearch(T*, BSTNode<T>*);
-	//---------------v1.1--------------------
 	virtual void recursiveMakeEmpty(BSTNode<T>*);
 	virtual BSTNode<T>* recursiveRemove(T*, BSTNode<T>*);
 	virtual BSTNode<T>* recursiveFindMin(BSTNode<T>*);
 	virtual BSTNode<T>* recursiveFindMax(BSTNode<T>*);
 public:
 	T* search(long long);
+	void moveData(HeapPriorityQueue<Person*>* queue, BSTNode<T>* cursor);
 	virtual string inOrder(BSTNode<T>*);
 	virtual string postOrder(BSTNode<T>*);
 	virtual string preOrder(BSTNode<T>*);
@@ -36,11 +36,9 @@ public:
 	virtual void setRoot(BSTNode<T>*);
 	virtual int getSize();
 	virtual void setSize(int);
-	//virtual bool insert(T*);
 	virtual bool insert(T*);
 	virtual bool search(T*);
 	virtual bool empty(); //Returns true if the tree is empty
-	//---------------v1.1--------------------
 	virtual void makeEmpty();
 	virtual T* findMin();
 	virtual T* findMax();
@@ -160,6 +158,16 @@ inline T* BST<T>::search(long long id)
 	return recursiveSearchId(id, root);
 }
 template<class T>
+inline void BST<T>::moveData(HeapPriorityQueue<Person*>* queue, BSTNode<T>* cursor)
+{
+	if (cursor)
+		if (cursor->getData()) {
+			moveData(queue, cursor->getLeft());
+			queue->insert(cursor->getData());
+			moveData(queue, cursor->getRight());
+		}
+}
+template<class T>
 inline bool BST<T>::recursiveInsert(T* info , BSTNode<T>* cursor)
 {
 	if (!root->getData()) { root->setData(info); size++;  return true; }
@@ -186,35 +194,7 @@ inline bool BST<T>::recursiveInsert(T* info , BSTNode<T>* cursor)
 	}
 	return false;
 }
-/*
-template <class T>
-bool BST<T>::recursiveInsert(T* info, BSTNode<T>* cursor) {
-	//if the tree is empty()
-	if (!root->getData()) { root->setData(info); size++;  return true; }
-	if (cursor && info) {
-		if (info < cursor->getData()) {
-			if (cursor->getLeft())
-				return recursiveInsert(info, cursor->getLeft());
-			else {
-				cursor->setLeft(new BSTNode<T>(info, nullptr, nullptr, cursor));
-				size++;
-				return true;
-			}
-		}
-		if (info > cursor->getData()) {
-			if (cursor->getRight())
-				return recursiveInsert(info, cursor->getRight());
-			else {
-				cursor->setRight(new BSTNode<T>(info, nullptr, nullptr, cursor));
-				size++;
-				return true;
-			}
-		}
 
-	}
-	return false;
-}
-*/
 template <class T>
 bool BST<T>::recursiveSearch(T* info, BSTNode<T>* cursor) {
 	if (cursor) {
@@ -229,12 +209,7 @@ bool BST<T>::recursiveSearch(T* info, BSTNode<T>* cursor) {
 	}
 	return false;
 }
-/*
-template <class T>
-bool BST<T>::insert(T* info) {
-	return recursiveInsert(info, root);
-}
-*/
+
 template <class T>
 BSTNode<T>* BST<T>::recursiveFindMin(BSTNode<T>* cursor) {
 	if (!cursor) return nullptr;

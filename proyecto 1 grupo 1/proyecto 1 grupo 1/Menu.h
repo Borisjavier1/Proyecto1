@@ -9,13 +9,13 @@
 
 #include "Tools.h"
 #include "DataPersistence.h"
-#include "HeapPriorityQueue.h"
 
 class Menu {
 private:
 	DataPersistence* data;
 protected:
 	BST<Person>* bst; //person binary search tree
+	HeapPriorityQueue<Person*>* hpq;
 public:
 	Menu();
 	virtual ~Menu();
@@ -29,6 +29,7 @@ public:
 	void option5();
 	void option6();
 	void option7();
+	Person* getDataPerson();
 };
 
 #endif

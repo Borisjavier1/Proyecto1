@@ -35,10 +35,7 @@ void DataPersistence::serialize(BST<Person>* bst)
 		ofstream out(this->filePath, ios::out);
 
 		if (out.good()) {
-			{
 				bst->serializeTree(out, bst->getRoot());
-
-			}
 			out.close();
 		}
 		else { throw FileError("Ruta del archivo no es valida o no hay permisos"); }
